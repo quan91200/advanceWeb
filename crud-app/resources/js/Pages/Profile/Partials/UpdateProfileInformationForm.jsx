@@ -1,9 +1,9 @@
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
+import { TextInput, InputError, InputLabel } from '@/Components/Input'
+import Button from '@/Components/Button'
 import { Transition } from '@headlessui/react';
 import { Link, useForm, usePage } from '@inertiajs/react';
+import { useState } from 'react';
+import Toast from '@/Components/Toast';
 
 export default function UpdateProfileInformation({
     mustVerifyEmail,
@@ -12,7 +12,7 @@ export default function UpdateProfileInformation({
 }) {
     const user = usePage().props.auth.user;
 
-    const { data, setData, patch, errors, processing, recentlySuccessful } =
+    const { data, setData, patch, errors, recentlySuccessful } =
         useForm({
             name: user.name,
             email: user.email,
@@ -23,6 +23,12 @@ export default function UpdateProfileInformation({
 
         patch(route('profile.update'));
     };
+
+    const [toast, setToast] = useState(false)
+
+    const handleSave = () => {
+        setToast(true)
+    }
 
     return (
         <section className={className}>
@@ -93,8 +99,16 @@ export default function UpdateProfileInformation({
                 )}
 
                 <div className="flex items-center gap-4">
-                    <PrimaryButton disabled={processing}>Save</PrimaryButton>
+                    <Button variant='info' onClick={handleSave}>Save</Button>
 
+                    {toast && (
+                        <Toast
+                            message='Completed ! ...'
+                            pos='top-center'
+                            type='success'
+                            duration={5000}
+                        />
+                    )}
                     <Transition
                         show={recentlySuccessful}
                         enter="transition ease-in-out"
