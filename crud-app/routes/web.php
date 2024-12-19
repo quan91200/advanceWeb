@@ -25,3 +25,11 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
+
+Route::resource('users', UserController::class);
+Route::resource('posts', PostController::class);
+Route::resource('posts.comments', CommentController::class);
