@@ -2,22 +2,21 @@
 
 namespace Database\Factories;
 
+use App\Models\Reactions;
+use App\Models\User;
+use App\Models\Posts;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Reactions>
- */
 class ReactionsFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
+    protected $model = Reactions::class;
+
+    public function definition()
     {
         return [
-            //
+            'user_id' => User::factory(),
+            'post_id' => Posts::factory(),
+            'reaction_type' => $this->faker->randomElement(['like', 'love', 'haha', 'wow', 'sad', 'angry']),
         ];
     }
 }

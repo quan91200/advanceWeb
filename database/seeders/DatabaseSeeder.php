@@ -2,22 +2,36 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
+use App\Models\Posts;
+use App\Models\Comment;
+use App\Models\Followers;
+use App\Models\Reactions;
+use App\Models\Sessions;
+use App\Models\Password_Reset_Token;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
-    public function run(): void
+    public function run()
     {
-        // User::factory(10)->create();
+        // Tạo 10 người dùng
+        User::factory(10)
+            ->hasPosts(3) // Mỗi người dùng sẽ có 3 bài đăng
+            ->hasComments(2) // Mỗi người dùng sẽ có 2 bình luận
+            ->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // Tạo vài Followers
+        Followers::factory(20)->create();
+
+        // Tạo vài Reaction cho bài viết
+        Reactions::factory(30)->create();
+
+        // Tạo vài Session
+        Sessions::factory(15)->create();
+
+        // Tạo vài Password Reset Tokens
+        Password_Reset_Token::factory(5)->create();
     }
 }
+

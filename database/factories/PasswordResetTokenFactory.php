@@ -2,22 +2,21 @@
 
 namespace Database\Factories;
 
+use App\Models\Password_Reset_Token;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\password_reset_token>
- */
 class PasswordResetTokenFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
+    protected $model = Password_Reset_Token::class;
+
+    public function definition()
     {
         return [
-            //
+            'email' => $this->faker->safeEmail(),
+            'token' => $this->faker->uuid(),
+            'created_at' => now(),
         ];
     }
 }
+

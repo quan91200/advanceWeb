@@ -15,7 +15,6 @@ return new class extends Migration
             $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending'); 
             $table->timestamps(); 
         });
-        
     }
 
     public function down(): void
