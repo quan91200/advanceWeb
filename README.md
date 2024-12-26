@@ -20,3 +20,13 @@ react
 dark
 phpunit
 ```
+
+### `3. Database`
+
+[schema datase](./Databse.md)
+
+```
+php artisan make:model User -mfs
+php artisan make:controller UserController
+```
+Tương tự cho các bảng khác
