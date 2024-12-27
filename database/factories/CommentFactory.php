@@ -14,10 +14,19 @@ class CommentFactory extends Factory
     public function definition()
     {
         return [
-            'post_id' => Posts::factory(), // Sử dụng PostFactory để tạo bài đăng
-            'user_id' => User::factory(), // Sử dụng UserFactory để tạo người dùng
+            'post_id' => Posts::factory(),
+            'user_id' => User::factory(), 
+            'parent_id' => null,
             'content' => $this->faker->text(100),
             'image_url' => $this->faker->imageUrl(640, 480, 'animals'),
         ];
+    }
+    public function withParent(Comment $parent)
+    {
+        return $this->state(function (array $attributes) use ($parent) {
+            return [
+                'parent_id' => $parent->id,
+            ];
+        });
     }
 }

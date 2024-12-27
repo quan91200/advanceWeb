@@ -9,28 +9,39 @@ class Reactions extends Model
 {
     use HasFactory;
 
+    const TYPE_LIKE = 'like';
+    const TYPE_LOVE = 'love';
+    const TYPE_WOW = 'wow';
+    const TYPE_SAD = 'sad';
+    const TYPE_ANGRY = 'angry';
+    const TYPE_HAHA = 'haha';
     protected $fillable = [
         'user_id',
         'post_id',
         'reaction_type',
     ];
-
-    // Reaction thuộc về một người dùng
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-
-    // Reaction thuộc về một bài đăng
     public function post()
     {
         return $this->belongsTo(Posts::class);
     }
-
-    // Nếu cần, reaction có thể thuộc về một bình luận (thay đổi schema nếu cần)
     public function comment()
     {
         return $this->belongsTo(Comment::class);
+    }
+    public static function getTypes(): array
+    {
+        return [
+            self::TYPE_LIKE,
+            self::TYPE_LOVE,
+            self::TYPE_WOW,
+            self::TYPE_SAD,
+            self::TYPE_ANGRY,
+            self::TYPE_HAHA
+        ];
     }
 }
 

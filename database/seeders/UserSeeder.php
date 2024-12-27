@@ -2,13 +2,16 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
+use App\Models\Comment;
+use App\Models\Posts;
+
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        // Tạo 10 người dùng với Factory
-        \App\Models\User::factory(10)->create();
+        User::factory(5)->create();
     }
 }

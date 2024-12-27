@@ -13,11 +13,15 @@ class SessionsFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => User::factory(), // Tạo user mới cho mỗi session
+            'id' => $this->faker->uuid,
+            'user_id' => User::factory(), 
             'ip_address' => $this->faker->ipv4,
             'user_agent' => $this->faker->userAgent,
-            'payload' => $this->faker->text,
-            'last_activity' => $this->faker->unixTime,
+            'payload' => json_encode([
+                '_token' => $this->faker->uuid,
+                '_flash' => ['old' => [], 'new' => []],
+            ]),
+            'last_activity' => time(),
         ];
     }
 }

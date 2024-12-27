@@ -13,7 +13,7 @@ class PostsFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => User::factory(), // Sử dụng UserFactory để tạo người dùng
+            'user_id' => User::factory(), 
             'status' => $this->faker->randomElement(['public', 'private', 'friend']),
             'content' => $this->faker->text(200),
             'image_url' => $this->faker->imageUrl(800, 600, 'nature'),

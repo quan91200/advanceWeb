@@ -1,0 +1,40 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+
+class FollowerController extends Controller
+{
+    // Người dùng theo dõi người khác
+    public function follow(User $user)
+{
+    if (Auth::check()) {
+        $follow = auth()->user()->following()->toggle($user->id);
+        return response()->json($follow);
+    }
+
+    return response()->json(['message' => 'Unauthorized'], 401);
+}
+
+
+    // Chấp nhận yêu cầu theo dõi
+    public function acceptFollowRequest(User $user)
+    {
+        // Kiểm tra nếu người dùng hiện tại đã đăng nhập
+        if (!Auth::check()) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+
+        // Lấy yêu cầu theo dõi từ bảng followers của người dùng
+        $follower = auth()->user()->followers()->where('user_id_1', $user->id)->first();
+
+        if ($follower) {
+            $follower->update(['status' => 'accepted']);
+            return response()->json('Follow request accepted');
+        }
+
+        return response()->json('Follow request not found', 404);
+    }
+}

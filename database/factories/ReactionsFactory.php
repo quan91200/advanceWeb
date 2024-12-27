@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Reactions;
 use App\Models\User;
 use App\Models\Posts;
+use App\Models\Comment;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ReactionsFactory extends Factory
@@ -13,10 +14,12 @@ class ReactionsFactory extends Factory
 
     public function definition()
     {
+        $entity = $this->faker->randomElement(['post', 'comment']);
         return [
             'user_id' => User::factory(),
-            'post_id' => Posts::factory(),
-            'reaction_type' => $this->faker->randomElement(['like', 'love', 'haha', 'wow', 'sad', 'angry']),
+            "{$entity}_id" => $entity === 'post' ? Posts::factory() : Comment::factory(),
+            'reaction_type' => $this->faker->randomElement(Reactions::getTypes()),
         ];
+
     }
 }

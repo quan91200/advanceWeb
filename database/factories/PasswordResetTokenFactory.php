@@ -3,8 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Password_Reset_Token;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 class PasswordResetTokenFactory extends Factory
 {
@@ -14,7 +14,7 @@ class PasswordResetTokenFactory extends Factory
     {
         return [
             'email' => $this->faker->safeEmail(),
-            'token' => $this->faker->uuid(),
+            'token' => Str::random(64),
             'created_at' => now(),
         ];
     }
