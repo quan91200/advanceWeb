@@ -1,0 +1,40 @@
+{
+    "base": {
+        "save": "Lưu",
+        "dashboard": "Trang chủ",
+        "profile": "Hồ sơ cá nhân",
+        "logout": "Đăng xuất",
+        "cancel": "Hủy"
+    },
+    "alert": {
+        "text": "Ngôn ngữ đã thay đổi thành Tiếng Việt"
+    },
+    "password": {
+        "curPass": "Mật khẩu hiện tại",
+        "newPass": "Mật khẩu mới",
+        "firmPass": "Xác nhận mật khẩu",
+        "title": "Cập nhật mật khẩu",
+        "para": "Đảm bảo tài khoản của bạn sử dụng mật khẩu dài, ngẫu nhiên để đảm bảo an toàn.",
+        "role": "Trường này hiển thị vai trò hiện tại của bạn và không thể thay đổi.",
+        "toast": "Mật khẩu được cập nhật thành công!"
+    },
+    "profile": {
+        "avatar": "Ảnh đại diện",
+        "role": "Quyền hạn",
+        "name": "Tên người dùng",
+        "email": "Email",
+        "title": "Cập nhật thông tin cá nhân",
+        "para": "Cập nhật thông tin hồ sơ tài khoản của bạn.",
+        "avt": "Thay ảnh",
+        "text1": "Địa chỉ email của bạn chưa được xác minh.",
+        "text2": "Nhấp vào đây để gửi lại email xác minh.",
+        "text3": "Một liên kết xác minh mới đã được gửi đến địa chỉ email của bạn.",
+        "toast": "Cập nhật thông tin thành công!"
+    },
+    "delete": {
+        "title": "Xóa tài khoản",
+        "para": "Sau khi tài khoản của bạn bị xóa, tất cả tài nguyên và dữ liệu của tài khoản đó sẽ bị xóa vĩnh viễn. Trước khi xóa tài khoản, vui lòng tải xuống bất kỳ dữ liệu hoặc thông tin nào mà bạn muốn giữ lại.",
+        "ask": "Bạn có chắc chắn muốn xóa tài khoản của mình không?",
+        "desc": "Sau khi tài khoản của bạn bị xóa, tất cả tài nguyên và dữ liệu của tài khoản đó sẽ bị xóa vĩnh viễn. Vui lòng nhập mật khẩu của bạn để xác nhận bạn muốn xóa vĩnh viễn tài khoản của mình."
+    }
+}

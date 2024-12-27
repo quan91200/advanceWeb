@@ -1,15 +1,29 @@
-import ApplicationLogo from '@/Components/ApplicationLogo';
-import Dropdown from '@/Components/Dropdown';
-import NavLink from '@/Components/NavLink';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-import { Link, usePage } from '@inertiajs/react';
-import { useState } from 'react';
+import ApplicationLogo from '@/Components/ApplicationLogo'
+import Dropdown from '@/Components/Dropdown'
+import NavLink from '@/Components/NavLink'
+import { Link, usePage } from '@inertiajs/react'
+import { useState, useEffect } from 'react';
+import { avtDefault } from '@/assets/images'
+import { useTranslation } from 'react-i18next'
 
 export default function AuthenticatedLayout({ header, children }) {
     const user = usePage().props.auth.user;
 
-    const [showingNavigationDropdown, setShowingNavigationDropdown] =
-        useState(false);
+    const [t, i18n] = useTranslation("global")
+    const [currentLanguage, setCurrentLanguage] = useState(i18n.language)
+
+    const handleLanguage = (lang) => {
+        i18n.changeLanguage(lang)
+        setCurrentLanguage(lang)
+        alert(t('alert.text'))
+    }
+
+    useEffect(() => {
+        setCurrentLanguage(i18n.language)
+    }, [i18n.language])
+
+    // const [showingNavigationDropdown, setShowingNavigationDropdown] =
+    //     useState(false)
 
     return (
         <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
@@ -28,34 +42,43 @@ export default function AuthenticatedLayout({ header, children }) {
                                     href={route('dashboard')}
                                     active={route().current('dashboard')}
                                 >
-                                    Dashboard
+                                    {t("base.dashboard")}
                                 </NavLink>
                             </div>
                         </div>
 
                         <div className="hidden sm:ms-6 sm:flex sm:items-center">
+                            <div className='flex gap-1 p-1'>
+                                <button
+                                    onClick={() => handleLanguage('en')}
+                                    className={currentLanguage === 'en' ? 'dark:text-white' : ''}
+                                >
+                                    EN
+                                </button>
+                                <button
+                                    onClick={() => handleLanguage('vn')}
+                                    className={currentLanguage === 'vn' ? 'dark:text-white' : ''}
+                                >
+                                    VN
+                                </button>
+                            </div>
                             <div className="relative ms-3">
                                 <Dropdown>
                                     <Dropdown.Trigger>
                                         <span className="inline-flex rounded-md">
                                             <button
                                                 type="button"
-                                                className="inline-flex items-center rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none dark:bg-gray-800 dark:text-gray-400 dark:hover:text-gray-300"
+                                                className="inline-flex gap-2 items-center rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none dark:bg-gray-800 dark:text-gray-400 dark:hover:text-gray-300"
                                             >
                                                 {user.name}
 
-                                                <svg
-                                                    className="-me-0.5 ms-2 h-4 w-4"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20"
-                                                    fill="currentColor"
-                                                >
-                                                    <path
-                                                        fillRule="evenodd"
-                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                        clipRule="evenodd"
+                                                <div className='h-8 w-8'>
+                                                    <img
+                                                        alt='avt'
+                                                        src={user.profile_pic || avtDefault}
+                                                        className='object-cover w-full h-full rounded-full border-2 border-blue-500'
                                                     />
-                                                </svg>
+                                                </div>
                                             </button>
                                         </span>
                                     </Dropdown.Trigger>
@@ -64,21 +87,21 @@ export default function AuthenticatedLayout({ header, children }) {
                                         <Dropdown.Link
                                             href={route('profile.edit')}
                                         >
-                                            Profile
+                                            {t("base.profile")}
                                         </Dropdown.Link>
                                         <Dropdown.Link
                                             href={route('logout')}
                                             method="post"
                                             as="button"
                                         >
-                                            Log Out
+                                            {t("base.logout")}
                                         </Dropdown.Link>
                                     </Dropdown.Content>
                                 </Dropdown>
                             </div>
                         </div>
 
-                        <div className="-me-2 flex items-center sm:hidden">
+                        {/* <div className="-me-2 flex items-center sm:hidden">
                             <button
                                 onClick={() =>
                                     setShowingNavigationDropdown(
@@ -117,11 +140,11 @@ export default function AuthenticatedLayout({ header, children }) {
                                     />
                                 </svg>
                             </button>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
 
-                <div
+                {/* <div
                     className={
                         (showingNavigationDropdown ? 'block' : 'hidden') +
                         ' sm:hidden'
@@ -132,7 +155,7 @@ export default function AuthenticatedLayout({ header, children }) {
                             href={route('dashboard')}
                             active={route().current('dashboard')}
                         >
-                            Dashboard
+                            {t("base.dashboard")}
                         </ResponsiveNavLink>
                     </div>
 
@@ -148,18 +171,18 @@ export default function AuthenticatedLayout({ header, children }) {
 
                         <div className="mt-3 space-y-1">
                             <ResponsiveNavLink href={route('profile.edit')}>
-                                Profile
+                                {t("base.profile")}
                             </ResponsiveNavLink>
                             <ResponsiveNavLink
                                 method="post"
                                 href={route('logout')}
                                 as="button"
                             >
-                                Log Out
+                                {t("base.logout")}
                             </ResponsiveNavLink>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </nav>
 
             {header && (

@@ -1,0 +1,41 @@
+{
+    "base": {
+        "save": "Save",
+        "dashboard": "Dashboard",
+        "profile": "Profile",
+        "logout": "Log out",
+        "cancel": "Cancel"
+    },
+    "alert": {
+        "text": "Language has been changed to English"
+    },
+    "password": {
+        "curPass": "Curent Password",
+        "newPass": "New Password",
+        "firmPass": "Confirm Password",
+        "title": "Update Password",
+        "para": "Ensure your account is using a long, random password to stay secure.",
+        "role": "This field displays your current role and cannot be changed.",
+        "toast": "Password updated successfully!"
+    },
+    "profile": {
+        "avatar": "Avatar",
+        "role": "Role",
+        "name": "Name",
+        "email": "Email",
+        "title": "Profile Information",
+        "para": "Update your account's profile information.",
+        "avt": "Change Avatar",
+        "text1": "Your email address is unverified.",
+        "text2": "Click here to re-send the verification email.",
+        "text3": "A new verification link has been sent to your email address.",
+        "toast": "Profile updated successfully!"
+    },
+    "delete": {
+        "title": "Delete Account",
+        "para": "Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.",
+        "ask": "Are you sure you want to delete your account?",
+        "desc": "Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account."
+
+    }
+}
