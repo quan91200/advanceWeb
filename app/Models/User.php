@@ -15,12 +15,12 @@ class User extends Authenticatable
         'password',
         'name',
         'profile_pic',
+        'role'
     ];
 
     protected $hidden = [
         'password',
         'remember_token',
-        'role'
     ];
 
     protected $casts = [
