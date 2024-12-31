@@ -16,7 +16,8 @@ class ReactionsFactory extends Factory
     {
         $entity = $this->faker->randomElement(['post', 'comment']);
         return [
-            'user_id' => User::factory(),
+            'created_by' => User::factory(),
+            'updated_by' => User::factory(),
             "{$entity}_id" => $entity === 'post' ? Posts::factory() : Comment::factory(),
             'reaction_type' => $this->faker->randomElement(Reactions::getTypes()),
         ];

@@ -9,12 +9,12 @@ class ReactionController extends Controller
 {
     public function store(Request $request, Posts $post)
     {
-        $validated = $request->validate([
+        $request->validate([
             'reaction_type' => 'required|in:like,love,haha,wow,sad,angry',
         ]);
 
         $reaction = $post->reactions()->updateOrCreate(
-            ['user_id' => $request->user()->id],
+            ['created_by' => $request->user()->id],
             ['reaction_type' => $request->reaction_type]
         );
 
@@ -23,10 +23,9 @@ class ReactionController extends Controller
 
     public function destroy(Posts $post)
     {
-        $reaction = $post->reactions()->where('user_id', request()->user()->id)->first();
+        $reaction = $post->reactions()->where('created_by', request()->user()->id)->first();
         $reaction->delete();
 
         return response()->json('Reaction deleted');
     }
 }
-

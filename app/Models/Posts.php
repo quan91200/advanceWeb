@@ -2,60 +2,76 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Posts extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     const STATUS_PUBLIC = 'public';
     const STATUS_PRIVATE = 'private';
     const STATUS_FRIEND = 'friend';
+
     protected $fillable = [
-        'user_id',
         'status',
         'content',
         'image_url',
         'likes_count',
+        'created_by',
+        'updated_by',
     ];
 
-    // Bài đăng thuộc về một người dùng
+    protected $casts = [
+        'likes_count' => 'integer',
+    ];
+
+    protected $attributes = [
+        'likes_count' => 0,
+    ];
+
+    // Quan hệ: Bài đăng thuộc về một người dùng
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    // Một bài đăng có nhiều bình luận
+    // Quan hệ: Một bài đăng có nhiều bình luận
     public function comments()
     {
         return $this->hasMany(Comment::class);
     }
 
-    // Một bài đăng có nhiều reactions
+    // Quan hệ: Một bài đăng có nhiều reactions
     public function reactions()
     {
         return $this->hasMany(Reactions::class);
     }
 
+    // Trạng thái bài đăng
     public static function getStatus(): array
     {
         return [
-            self::STATUS_PUBLIC,
-            self::STATUS_PRIVATE,
-            self::STATUS_FRIEND,
+            self::STATUS_PUBLIC => 'public',
+            self::STATUS_PRIVATE => 'private',
+            self::STATUS_FRIEND => 'friend',
         ];
     }
-    public function scopePublic($query)
+
+    // Scopes
+    public function scopeStatus($query, $status)
     {
-        return $query->where('status', self::STATUS_PUBLIC);
+        return $query->where('status', $status);
     }
-    public function scopePrivate($query)
+
+    // Các sự kiện
+    protected static function boot()
     {
-        return $query->where('status', self::STATUS_PRIVATE);
-    }
-    public function scopeFriend($query)
-    {
-        return $query->where('status', self::STATUS_FRIEND);
+        parent::boot();
+        static::deleting(function ($post) {
+            $post->comments()->delete();
+        });
     }
 }

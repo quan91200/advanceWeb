@@ -19,7 +19,8 @@ class CommentController extends Controller
 
         $comment = Comment::create([
             'post_id' => $post->id,
-            'user_id' => $request->user()->id,
+            'created_by' => $request->user()->id,
+            'updated_by' => $request->user()->id,
             'content' => $request->content,
             'image_url' => $request->image_url,
         ]);

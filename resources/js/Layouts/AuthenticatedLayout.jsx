@@ -2,12 +2,11 @@ import ApplicationLogo from '@/Components/ApplicationLogo'
 import Dropdown from '@/Components/Dropdown'
 import NavLink from '@/Components/NavLink'
 import { Link, usePage } from '@inertiajs/react'
-import { useState, useEffect } from 'react';
-import { avtDefault } from '@/assets/images'
+import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 export default function AuthenticatedLayout({ header, children }) {
-    const user = usePage().props.auth.user;
+    const user = usePage().props.auth.user
 
     const [t, i18n] = useTranslation("global")
     const [currentLanguage, setCurrentLanguage] = useState(i18n.language)
@@ -44,6 +43,12 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                     {t("base.dashboard")}
                                 </NavLink>
+                                <NavLink
+                                    href={route('posts.index')}
+                                    active={route().current('posts.index')}
+                                >
+                                    {t("base.post")}
+                                </NavLink>
                             </div>
                         </div>
 
@@ -75,7 +80,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                                 <div className='h-8 w-8'>
                                                     <img
                                                         alt='avt'
-                                                        src={user.profile_pic || avtDefault}
+                                                        src={user.profile_pic ? `/storage/${user.profile_pic}` : '/images/default.png'}
                                                         className='object-cover w-full h-full rounded-full border-2 border-blue-500'
                                                     />
                                                 </div>
@@ -195,5 +200,5 @@ export default function AuthenticatedLayout({ header, children }) {
 
             <main>{children}</main>
         </div>
-    );
+    )
 }

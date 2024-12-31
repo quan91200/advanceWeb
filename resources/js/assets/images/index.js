@@ -1,1 +1,0 @@
-export { default as avtDefault } from './default.png'

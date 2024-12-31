@@ -4,9 +4,8 @@ import Button from '@/Components/Button'
 import TextInput from '@/Components/TextInput'
 import Toast from '@/Components/Toast'
 import Tooltip from '@/Components/Tooltip'
-import { Link, useForm, usePage } from '@inertiajs/react'
+import { Link, useForm, usePage, router } from '@inertiajs/react'
 import { useState } from 'react'
-import { avtDefault } from '@/assets/images'
 import { useTranslation } from 'react-i18next'
 
 export default function UpdateProfileInformation({
@@ -16,35 +15,41 @@ export default function UpdateProfileInformation({
 }) {
     const user = usePage().props.auth.user
 
-    const { data, setData, patch, errors } =
+    const { data, setData, errors } =
         useForm({
             name: user.name,
             email: user.email,
-            profile_pic: user.profile_pic,
+            profile_pic: null,
         })
 
     const [isHovered, setIsHovered] = useState(false)
-    const [avatar, setAvatar] = useState(user.profile_pic || avtDefault)
+    const [avatar, setAvatar] = useState(
+        user.profile_pic ? `/storage/${user.profile_pic}` : '/images/default.png'
+    )
     const [showToast, setShowToast] = useState(false)
     const [t, i18n] = useTranslation("global")
-
-    const submit = (e) => {
-        e.preventDefault()
-        patch(route('profile.update'), {
-            onSuccess: () => setShowToast(true)
-        })
-    }
 
     const handleAvatarChange = (e) => {
         const file = e.target.files[0]
         if (file) {
-            const reader = new FileReader()
-            reader.onloadend = () => {
-                setAvatar(reader.result)
-                setData('profile_pic', file)
-            }
-            reader.readAsDataURL(file)
+            setAvatar(URL.createObjectURL(file))
+            setData('profile_pic', file)
         }
+    }
+
+    const submit = (e) => {
+        e.preventDefault()
+        const formData = new FormData()
+        formData.append('name', data.name)
+        formData.append('email', data.email)
+        if (data.profile_pic) {
+            formData.append('profile_pic', data.profile_pic)
+        }
+
+        router.post(route('profile.update'), formData, {
+            method: 'patch',
+            onSuccess: () => setShowToast(true),
+        })
     }
 
     return (
@@ -88,7 +93,7 @@ export default function UpdateProfileInformation({
                 </div>
                 <div className='opacity-45 relative'>
                     <Tooltip
-                        content="This field displays your current role and cannot be changed."
+                        content={t('profile.toast1')}
                         placement="right"
                         arrow={true}
                         delay={300}

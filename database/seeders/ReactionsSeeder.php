@@ -21,7 +21,8 @@ class ReactionsSeeder extends Seeder
         foreach ($posts as $post) {
             foreach ($users->random(3) as $user) { 
                 Reactions::create([
-                    'user_id' => $user->id,
+                    'created_by' => $user->id,
+                    'updated_by' => $user->id,
                     'post_id' => $post->id,
                     'reaction_type' => $reactionType,
                 ]);
@@ -31,7 +32,8 @@ class ReactionsSeeder extends Seeder
         foreach ($comments as $comment) {
             foreach ($users->random(2) as $user) {  
                 Reactions::create([
-                    'user_id' => $user->id,
+                    'created_by' => $user->id,
+                    'updated_by' => $user->id,
                     'comment_id' => $comment->id,
                     'reaction_type' => $reactionType,
                 ]);

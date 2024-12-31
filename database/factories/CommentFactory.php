@@ -15,10 +15,11 @@ class CommentFactory extends Factory
     {
         return [
             'post_id' => Posts::factory(),
-            'user_id' => User::factory(), 
             'parent_id' => null,
             'content' => $this->faker->text(100),
             'image_url' => $this->faker->imageUrl(640, 480, 'animals'),
+            'created_by' => User::factory(),
+            'updated_by' => User::factory(), 
         ];
     }
     public function withParent(Comment $parent)

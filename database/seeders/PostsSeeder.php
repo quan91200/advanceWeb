@@ -6,7 +6,6 @@ use App\Models\Posts;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
-use Illuminate\Support\Arr;
 
 class PostsSeeder extends Seeder
 {
@@ -18,7 +17,8 @@ class PostsSeeder extends Seeder
         foreach ($users as $user) {
             for ($i = 0; $i < 1; $i++) {  
                 Posts::create([
-                    'user_id' => $user->id, 
+                    'created_by' => $user->id,
+                    'updated_by' => $user->id,
                     'status' => $faker->randomElement(Posts::getStatus()),  
                     'content' => $faker->paragraph,  
                     'image_url' => $faker->imageUrl(), 

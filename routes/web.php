@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\SessionController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -20,8 +24,17 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::resource('posts', PostController::class);
+    Route::resource('comment', CommentController::class);
+    Route::resource('users', UserController::class);
+
+    Route::get('sessions/cleanup', [SessionController::class, 'cleanup']);
+    Route::get('sessions/user/{userId}', [SessionController::class, 'getUserSessions']);
+    Route::delete('sessions/{sessionId}', [SessionController::class, 'destroy']);
+
 });
 
 require __DIR__.'/auth.php';

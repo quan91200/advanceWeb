@@ -3,59 +3,33 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sessions;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 
 class SessionController extends Controller
 {
-    // Hiển thị danh sách sessions của người dùng (admin hoặc chính người dùng đó)
-    public function index(Request $request)
+    // Xóa các session cũ
+    public function cleanup()
     {
-        if (Gate::denies('viewAny', Sessions::class)) {
-            return response()->json(['error' => 'Unauthorized'], 403);
-        }
+        Sessions::cleanOldSessions(30); // Xóa session cũ hơn 30 ngày
+        return response()->json(['message' => 'Old sessions cleaned up']);
+    }
 
-        $sessions = $request->user()->sessions;
-
+    // Lấy tất cả session của một người dùng
+    public function getUserSessions($userId)
+    {
+        $sessions = Sessions::where('user_id', $userId)->get();
         return response()->json($sessions);
     }
 
-    // Hiển thị thông tin chi tiết của session
-    public function show($sessionId)
-    {
-        $session = Sessions::find($sessionId);
-
-        if (!$session) {
-            return response()->json(['error' => 'Session not found'], 404);
-        }
-
-        return response()->json($session);
-    }
-
-    // Xóa một session (đăng xuất một phiên làm việc)
+    // Xóa session theo ID
     public function destroy($sessionId)
     {
         $session = Sessions::find($sessionId);
 
-        if (!$session) {
-            return response()->json(['error' => 'Session not found'], 404);
+        if ($session) {
+            $session->delete();
+            return response()->json(['message' => 'Session deleted']);
         }
 
-        if ($session->user_id !== Auth::id()) {
-            return response()->json(['error' => 'Unauthorized'], 403);
-        }
-
-        $session->delete();
-
-        return response()->json(['message' => 'Session terminated successfully']);
-    }
-
-    // Đăng xuất tất cả các phiên làm việc của người dùng
-    public function destroyAll(Request $request)
-    {
-        $request->user()->sessions()->delete();
-
-        return response()->json(['message' => 'All sessions terminated']);
+        return response()->json(['message' => 'Session not found'], 404);
     }
 }

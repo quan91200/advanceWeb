@@ -2,9 +2,18 @@
     "base": {
         "save": "Lưu",
         "dashboard": "Trang chủ",
+        "post": "Không gian bài viết",
         "profile": "Hồ sơ cá nhân",
         "logout": "Đăng xuất",
-        "cancel": "Hủy"
+        "cancel": "Hủy",
+        "edit": "Sửa",
+        "delete": "Xóa",
+        "update": "Cập nhật",
+        "create": "Tạo",
+        "creating": "Đang tạo",
+        "updating": "Đang cập nhật",
+        "deleting": "Đang xóa"
+
     },
     "alert": {
         "text": "Ngôn ngữ đã thay đổi thành Tiếng Việt"
@@ -29,12 +38,33 @@
         "text1": "Địa chỉ email của bạn chưa được xác minh.",
         "text2": "Nhấp vào đây để gửi lại email xác minh.",
         "text3": "Một liên kết xác minh mới đã được gửi đến địa chỉ email của bạn.",
-        "toast": "Cập nhật thông tin thành công!"
+        "toast": "Cập nhật thông tin thành công!",
+        "toast1": "Trường này hiển thị vai trò hiện tại của bạn và không thể thay đổi."
     },
     "delete": {
         "title": "Xóa tài khoản",
         "para": "Sau khi tài khoản của bạn bị xóa, tất cả tài nguyên và dữ liệu của tài khoản đó sẽ bị xóa vĩnh viễn. Trước khi xóa tài khoản, vui lòng tải xuống bất kỳ dữ liệu hoặc thông tin nào mà bạn muốn giữ lại.",
         "ask": "Bạn có chắc chắn muốn xóa tài khoản của mình không?",
         "desc": "Sau khi tài khoản của bạn bị xóa, tất cả tài nguyên và dữ liệu của tài khoản đó sẽ bị xóa vĩnh viễn. Vui lòng nhập mật khẩu của bạn để xác nhận bạn muốn xóa vĩnh viễn tài khoản của mình."
+    },
+    "post": {
+        "delete": "Xóa bài đăng",
+        "desc": "Bạn có chắc muốn xóa bài đăng này không?",
+        "nopost": "Không có bài viết nào có sẵn.",
+        "create": "Tạo bài viết mới",
+        "edit": "Sửa bài viết",
+        "content": "Nội dung",
+        "status": "Trạng thái"
+    },
+    "status": {
+        "public": "Công khai",
+        "private": "Riêng tư",
+        "friend": "Chỉ Bạn bè"
+    },
+    "sort": {
+        "all": "Tất cả bài viết",
+        "name": "Theo tên",
+        "date": "Theo ngày đăng",
+        "mine": "Bài viết của tôi"
     }
 }

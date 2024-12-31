@@ -31,10 +31,30 @@ class FollowerController extends Controller
         $follower = auth()->user()->followers()->where('user_id_1', $user->id)->first();
 
         if ($follower) {
-            $follower->update(['status' => 'accepted']);
+            $follower->pivot->update(['status' => 'accepted']);
             return response()->json('Follow request accepted');
         }
 
         return response()->json('Follow request not found', 404);
     }
+
+     // Từ chối yêu cầu theo dõi
+     public function rejectFollowRequest(User $user)
+     {
+         // Kiểm tra nếu người dùng hiện tại đã đăng nhập
+         if (!Auth::check()) {
+             return response()->json(['message' => 'Unauthorized'], 401);
+         }
+ 
+         // Lấy yêu cầu theo dõi từ bảng followers của người dùng
+         $follower = auth()->user()->followers()->where('user_id_1', $user->id)->first();
+ 
+         if ($follower) {
+             // Cập nhật trạng thái follow thành 'rejected'
+             $follower->pivot->update(['status' => 'rejected']);
+             return response()->json(['message' => 'Follow request rejected']);
+         }
+ 
+         return response()->json(['message' => 'Follow request not found'], 404);
+     }
 }

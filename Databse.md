@@ -29,7 +29,8 @@ last_activity       INT                 Lưu trữ thời gian hoạt động cu
 4. Posts
 Column	            Type	            Description
 id	                INT	                Primary key Tự động tăng
-user_id	            INT	                Foreign key Tham chiếu tới bảng Users
+created_by	        INT	                Foreign key Tham chiếu tới bảng Users (Người tạo)
+updated_by	        INT	                Foreign key Tham chiếu tới bảng Users (Người sửa)
 status              ENUM('public',      Trạng thái bài đăng: công khai
                             'private',                      riêng tư
                             'friend')                       chế độ bạn bè
@@ -42,7 +43,8 @@ likes_count	        INT	                Số lượt thích bài viết
 Column	            Type	            Description
 id	                INT	                Primary key tự động tăng
 post_id	            INT	                Foreign key tham chiếu tới bảng Posts
-user_id	            INT	                Foreign key tham chiếu tới bảng Users
+created_by	        INT	                Foreign key tham chiếu tới bảng Users (Người tạo)
+updated_by	        INT	                Foreign key Tham chiếu tới bảng Users (Người sửa)
 content	            TEXT	            Nội dung bình luận
 image_url           VARCHAR(255)        Đường dẫn hình ảnh
 created_at	        TIMESTAMP	        Thời gian bình luận
@@ -57,7 +59,8 @@ created_at          TIMESTAMP           Thời gian gửi lời mời kết bạ
 7. Reactions
 Column              Type                Description
 id                  INT                 Primary key Tự động tăng
-user_id             INT                 Foreign key Tham chiếu tới bảng Users
+created_by          INT                 Foreign key Tham chiếu tới bảng Users (Người tạo)
+updated_by	        INT	                Foreign key Tham chiếu tới bảng Users (Người sửa)
 post_id             INT                 Foreign key Tham chiếu tới bảng Posts
 reaction_type       ENUM('like',        Loại phản ứng: thích
                             'love',                     yêu

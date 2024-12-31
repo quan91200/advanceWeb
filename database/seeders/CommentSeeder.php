@@ -14,18 +14,21 @@ class CommentSeeder extends Seeder
     {
         $faker = Faker::create();
         $posts = Posts::all();
-        
+        $userId = User::inRandomOrder()->first()->id;
         foreach ($posts as $post) {
             $parentComments = Comment::factory(2)->create([
                 'post_id' => $post->id,
-                'user_id' => User::inRandomOrder()->first()->id,
+                'created_by' => $userId,
+                'updated_by' => $userId
+                
             ]);
 
             foreach ($parentComments as $parentComment) {
                 Comment::factory(1)->create([
                     'post_id' => $post->id,
-                    'user_id' => User::inRandomOrder()->first()->id,
                     'parent_id' => $parentComment->id,
+                    'created_by' => $userId,
+                    'updated_by' => $userId
                 ]);
             }
         }

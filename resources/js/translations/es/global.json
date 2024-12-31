@@ -2,9 +2,17 @@
     "base": {
         "save": "Save",
         "dashboard": "Dashboard",
+        "post": "Article Space",
         "profile": "Profile",
         "logout": "Log out",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "edit": "Edit",
+        "delete": "Delete",
+        "update": "Update",
+        "create": "Create",
+        "creating": "Creating",
+        "updating": "Updating",
+        "deleting": "Deleting"
     },
     "alert": {
         "text": "Language has been changed to English"
@@ -29,13 +37,33 @@
         "text1": "Your email address is unverified.",
         "text2": "Click here to re-send the verification email.",
         "text3": "A new verification link has been sent to your email address.",
-        "toast": "Profile updated successfully!"
+        "toast": "Profile updated successfully!",
+        "toast1": "This field displays your current role and cannot be changed."
     },
     "delete": {
         "title": "Delete Account",
         "para": "Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.",
         "ask": "Are you sure you want to delete your account?",
         "desc": "Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account."
-
+    },
+    "post": {
+        "delete": "Delete Post",
+        "desc": "Are you sure you want to delete this post?",
+        "nopost": "No posts available.",
+        "create": "Create New Post",
+        "edit": "Edit Post",
+        "content": "Content",
+        "status": "Status"
+    },
+    "status": {
+        "public": "Public",
+        "private": "Private",
+        "friend": "Friend"
+    },
+    "sort": {
+        "all": "All Post",
+        "name": "Sort by Name",
+        "date": "Sort by Date",
+        "mine": "My Posts"
     }
 }

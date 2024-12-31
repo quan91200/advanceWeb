@@ -16,7 +16,8 @@ class Reactions extends Model
     const TYPE_ANGRY = 'angry';
     const TYPE_HAHA = 'haha';
     protected $fillable = [
-        'user_id',
+        'created_by',
+        'updated_by',
         'post_id',
         'reaction_type',
     ];
