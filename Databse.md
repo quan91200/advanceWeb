@@ -2,7 +2,6 @@
 1. User: Bảng này lưu thông tin về người dùng trong hệ thống.
 Column	            Type	            Description
 id	                INT                 Primary key Tự động tăng
-username	        VARCHAR(255)	    Tên người dùng, phải là duy nhất
 email	            VARCHAR(255)	    Email người dùng, phải là duy nhất
 email_verified_at   TIMESTAMP           NOTNULL Xác thực email
 password	        VARCHAR(255)	    Mã hóa mật khẩu
@@ -38,7 +37,7 @@ content	            TEXT NOTNULL	    Nội dung bình luận
 image_url           VARCHAR(255)        Đường dẫn hình ảnh
 created_at	        TIMESTAMP	        Thời gian bình luận
 updated_at	        TIMESTAMP	        Thời gian cập nhật bài viết
-likes_count	        INT	                Số lượt thích bài viết
+comment_count	    INT	                Số lượt bình luận bài viết
 5. Comments
 Column	            Type	            Description
 id	                INT	                Primary key tự động tăng
@@ -48,26 +47,4 @@ updated_by	        INT	                Foreign key Tham chiếu tới bảng Use
 content	            TEXT	            Nội dung bình luận
 image_url           VARCHAR(255)        Đường dẫn hình ảnh
 created_at	        TIMESTAMP	        Thời gian bình luận
-6. Followers
-Column              Type                Description
-user_id_1           INT                 Foreign key tham chiếu tới bảng Users
-user_id_2           INT                 Foreign key tham chiếu tới bảng Users
-status              ENUM('pending',     Trạng thái kết bạn: chờ
-                        'accepted',                         đã chấp nhận
-                        'rejected')                         từ chối
-created_at          TIMESTAMP           Thời gian gửi lời mời kết bạn
-7. Reactions
-Column              Type                Description
-id                  INT                 Primary key Tự động tăng
-created_by          INT                 Foreign key Tham chiếu tới bảng Users (Người tạo)
-updated_by	        INT	                Foreign key Tham chiếu tới bảng Users (Người sửa)
-post_id             INT                 Foreign key Tham chiếu tới bảng Posts
-reaction_type       ENUM('like',        Loại phản ứng: thích
-                            'love',                     yêu
-                            'haha',                     cười
-                            'wow',                      ngạc nhiên
-                            'sad',                      buồn
-                            'angry')                    tức giận
-created_at          TIMESTAMP           Thời gian gửi react
-updated_at          TIMESTAMP           Thời gian cập nhật react (sửa, xóa, ...)
 ```

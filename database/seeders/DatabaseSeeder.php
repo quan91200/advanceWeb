@@ -12,8 +12,6 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             PostsSeeder::class,
             CommentSeeder::class,
-            FollowersSeeder::class,
-            ReactionsSeeder::class,
             SessionsSeeder::class,
             PasswordResetTokenSeeder::class,
         ]);

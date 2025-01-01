@@ -21,15 +21,19 @@ class Comment extends Model
     // Bình luận thuộc về một bài đăng
     public function post()
     {
-        return $this->belongsTo(Posts::class);
+        return $this->belongsTo(Posts::class, 'post_id');
     }
 
     // Bình luận thuộc về một người dùng
-    public function user()
+    public function createdBy()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'created_by');
     }
-
+    // Bình luận được cập nhật bởi người dùng
+    public function updatedBy()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
+    }
     // Một bình luận có thể có nhiều bình luận con
     public function replies()
     {

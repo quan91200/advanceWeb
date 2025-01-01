@@ -10,14 +10,17 @@ class PostResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'user_name' => $this->user->name ?? 'Anonymous', 
             'content' => $this->content,
             'image_url' => $this->image_url ? asset('storage/' . $this->image_url) : null,
             'status' => $this->status,
-            'likes_count' => $this->likes_count,
-            'comments_count' => $this->comments()->count(),
+            'comment_count' => $this->comment_count,
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),
             'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
+            'user' => [
+                'id' => $this->user->id,
+                'name' => $this->user->name,
+                'profile_pic' => $this->user->profile_pic ? asset('storage/' . $this->user->profile_pic) : null,
+            ],
         ];
     }
 }

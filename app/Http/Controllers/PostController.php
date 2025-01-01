@@ -4,94 +4,142 @@ namespace App\Http\Controllers;
 
 use App\Models\Posts;
 use App\Http\Resources\PostResource;
+use App\Http\Resources\CommentResource;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use Inertia\Inertia;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 class PostController extends Controller
 {
-    use AuthorizesRequests;
     public function index()
     {
+        $query = Posts::query();
         $sortField = request("sort_field", 'created_at');
         $sortDirection = request("sort_direction", "desc");
-
-        $posts = auth()->user()->posts()
+        if (request("content")) {
+            $query->where("content", "like", "%" . request("content") . "%");
+        }
+        if (request("status")) {
+            $query->where("status", request("status"));
+        }
+        $posts = $query->orderBy($sortField, $sortDirection)
             ->withCount('comments')
             ->with('user') 
-            ->orderBy($sortField, $sortDirection)
             ->paginate(10)
-            ->onEachSide(1)
-            ->map(function($post) {
-                $post->image_url = $post->image_url ? Storage::url($post->image_url) : null;
-                return $post;
-        });
-        return Inertia::render('Posts/Index', [
+            ->onEachSide(1);
+        return inertia('Posts/Index', [
             'posts' => PostResource::collection($posts),
             'queryParams' => request()->query() ?: null,
+            'user' => auth()->user(),
         ]);
     }
-
     public function create()
     {
-        return Inertia::render('Posts/Create', [
-            'status' => ['public', 'private', 'friend']
+        return Inertia::render('Posts/Create');
+    }
+    public function show(Posts $posts)
+    {   
+        $post = $posts->load(['comments.createdBy', 'comments.updatedBy']);
+        return inertia("Posts/Show", [
+            'post'=> new PostResource($posts),
+            'comments' => CommentResource::collection($post->comments),
+            'queryParams' => request()->query() ?: null,
+            'success'=> session('success'),
         ]);
     }
-
     public function store(StorePostRequest $request)
     {   
         $data = $request->validated();
-        $imagePath = null;
+        $data['created_by'] = Auth::id();
+        $data['updated_by'] = Auth::id();
         if ($request->hasFile('image_url')) {
             $file = $request->file('image_url');
-            $imagePath = $file->storeAs('posts', time() . '.' . $file->getClientOriginalExtension(), 'public');
+            $image = $file->storeAs('posts', time() . '.' . $file->getClientOriginalExtension(), 'public');
+            $data['image_url'] = $image;
+        } else {
+            $data['image_url'] = null;
         }
-        // Gắn đường dẫn ảnh vào dữ liệu
-        $data['image_url'] = $imagePath;
-            // Tạo bài đăng mới
-            Posts::create($data);
+        Posts::create($data);
 
-            return redirect()->route('posts.index');
+        return redirect()->route('dashboard')->with('success', 'Post created successfully!');
     }
-    // Hiển thị form chỉnh sửa bài đăng
     public function edit(Posts $post)
     {
-        return Inertia::render('Posts/Edit', [
-            'post' => new PostResource($post),
-            'status' => ['public', 'private', 'friend']
+        $post = Posts::findOrFail( $post->id);
+        return inertia('Posts/Edit', [
+            'posts' => new PostResource($post)
         ]);
     }
-
     public function update(UpdatePostRequest $request, Posts $post)
     {
-        // Validate dữ liệu đầu vào
         $data = $request->validated();
-    
-        // Kiểm tra và lưu ảnh mới nếu có
-        $imagePath = $post->image_url; // Lấy ảnh cũ nếu không có ảnh mới
         if ($request->hasFile('image_url')) {
-            // Xóa ảnh cũ nếu có
             if ($post->image_url && Storage::exists('public/' . $post->image_url)) {
                 Storage::delete('public/' . $post->image_url);
             }
-            $imagePath = $request->file('image_url')->storeAs('posts', time() . '.' . $request->file('image_url')->getClientOriginalExtension(), 'public');
+            $data['image_url'] = $request->file('image_url')->storeAs(
+                'posts',
+                time() . '.' . $request->file('image_url')->getClientOriginalExtension(),
+                'public'
+            );
         }
-        // Gắn đường dẫn ảnh vào dữ liệu
-        $data['image_url'] = $imagePath;
-        // Cập nhật bài đăng
-        $post->update($data);
-        return redirect()->route('posts.index');
+        $post->fill($data);
+        $post->save();
+        return to_route('dashboard');
     }  
     public function destroy(Posts $post)
     {
-        // Xóa ảnh liên quan nếu có
         if ($post->image_url && Storage::exists('public/' . $post->image_url)) {
             Storage::delete('public/' . $post->image_url);
         }
         $post->delete();
-        return redirect()->route('posts.index');
+        return redirect()->route('dashboard');
     }
-
+    public function trashed($userId)
+    {   
+        $query = Posts::onlyTrashed()->where('created_by', $userId); 
+        $sortField = request("sort_field", 'created_at');
+        $sortDirection = request("sort_direction", "desc");
+    
+        if (request("content")) {
+            $query->where("content", "like", "%" . request("content") . "%");
+        }
+        if (request("deleted_at")) {
+            $query->whereDate("deleted_at", "like", "%" . request("deleted_at") . "%");
+        }        
+        $trashed = $query->orderBy($sortField, $sortDirection)->paginate(10);
+        return inertia('Posts/Trashed', [
+            'trashed' => $trashed,
+            'queryParams' => request()->query() ?: null,
+        ]);
+    }    
+    public function restore($id)
+    {
+        $post = Posts::onlyTrashed()->findOrFail($id);
+        $post->restore(); 
+        return redirect()->route('posts.trashed', ['userId' => $post->created_by]);
+    }
+    public function forceDelete($id)
+    {
+        $post = Posts::onlyTrashed()->findOrFail($id);
+        $post->forceDelete();
+        return redirect()->route('posts.trashed', ['userId' => $post->created_by]);
+    }
+    public function restoreAll($userId)
+    {
+        $trashed = Posts::onlyTrashed()->where('created_by', $userId)->get();
+        foreach ($trashed as $post) {
+            $post->restore();
+        }
+        return redirect()->route('posts.trashed', ['userId' => $userId]);
+    }
+    public function forceDeleteAll($userId)
+    {
+        $trashedPosts = Posts::onlyTrashed()->where('created_by', $userId)->get();
+        foreach ($trashedPosts as $post) {
+            $post->forceDelete();
+        }
+        return redirect()->route('posts.trashed', ['userId' => $userId]);
+    }
 }

@@ -1,59 +1,45 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
-import { Head, usePage } from '@inertiajs/react'
+import { Head, router } from '@inertiajs/react'
 import { useTranslation } from 'react-i18next'
-import { useState, useEffect } from 'react'
-import Modal from '@/Components/Modal'
-import CreatePostForm from './Create'
-import EditPostForm from './Edit'
-import DeletePostForm from './Delete'
-import Button from '@/Components/Button'
-import Filter from './Filter'
 import Comment from '@/Components/Comment'
+import Pagination from '@/Components/Pagination'
+import SortButton from '@/Components/SortButton'
+import TextInput from '@/Components/TextInput'
+import React from "react"
 
-const Index = ({ auth, post }) => {
-    const [t, i18n] = useTranslation("global")
-    const { posts } = usePage().props.auth
-    const [isModalOpen, setIsModalOpen] = useState(false)
-    const [selectedPost, setSelectedPost] = useState(null)
-    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
-    const [postToDelete, setPostToDelete] = useState(null)
-    const [filteredPosts, setFilteredPosts] = useState(posts)
-
-    const openCreateModal = () => {
-        setSelectedPost(null)
-        setIsModalOpen(true)
+const Index = ({ auth, posts, queryParams = null }) => {
+    const [t] = useTranslation("global")
+    queryParams = queryParams || {}
+    const searchFieldChanged = (name, value) => {
+        if (value) {
+            queryParams[name] = value
+        } else {
+            delete queryParams[name]
+        }
+        router.get(route('posts.index'), queryParams)
     }
 
-    const openEditModal = (post) => {
-        setSelectedPost(post)
-        setIsModalOpen(true)
+    const onKeyPress = (name, e) => {
+        if (e.key !== "Enter") return
+        searchFieldChanged(name, e.target.value)
     }
 
-    const closeModal = () => {
-        setIsModalOpen(false)
-        setSelectedPost(null)
+    const sortChanged = (name) => {
+        if (name === queryParams.sort_field) {
+            if (queryParams.sort_direction === "asc") {
+                queryParams.sort_direction = "desc"
+            } else {
+                queryParams.sort_direction = "asc"
+            }
+        } else {
+            queryParams.sort_field = name
+            queryParams.sort_direction = "asc"
+        }
+        router.get(route("posts.index"), queryParams)
     }
-
-    const openDeleteModal = (post) => {
-        setPostToDelete(post)
-        setIsDeleteModalOpen(true)
-    }
-
-    const closeDeleteModal = () => {
-        setIsDeleteModalOpen(false)
-        setPostToDelete(null)
-    }
-
-    const resetModalOnPageChange = () => {
-        closeModal()
-    }
-
-    useEffect(() => {
-        resetModalOnPageChange()
-    }, [usePage().url])
-
     return (
         <AuthenticatedLayout
+            user={auth.user}
             header={
                 <h2 className="text-xl font-semibold leading-tight dark:text-white">
                     {t('base.post')}
@@ -65,22 +51,37 @@ const Index = ({ auth, post }) => {
                 <div className="mx-auto max-w-4xl sm:px-6 lg:px-8">
                     <div className="overflow-hidden">
                         <div className="p-6 text-gray-900 dark:text-gray-100">
-                            <div className='flex items-center gap-3 mb-6'>
-                                <Button variant='info' onClick={openCreateModal} size='medium'>
-                                    {t('post.create')}
-                                </Button>
-                                <Filter
-                                    posts={posts}
-                                    authUserId={auth.user.id}
-                                    setFilteredPosts={setFilteredPosts}
+                            <div className='flex items-center gap-3 mb-6 dark:bg-gray-800 px-3 py-2 rounded-md'>
+                                <TextInput
+                                    className="w-[30%]"
+                                    defaultValue={queryParams.name}
+                                    placeholder="Post Name"
+                                    onBlur={(e) =>
+                                        searchFieldChanged("name", e.target.value)
+                                    }
+                                    onKeyPress={(e) => onKeyPress("name", e)}
+                                />
+                                <SortButton
+                                    field="created_at"
+                                    label={t('base.created_at')}
+                                    sort_field={queryParams.sort_field}
+                                    sort_direction={queryParams.sort_direction}
+                                    sortChanged={sortChanged}
+                                />
+                                <SortButton
+                                    field="created_by"
+                                    label={t('base.created_by')}
+                                    sort_field={queryParams.sort_field}
+                                    sort_direction={queryParams.sort_direction}
+                                    sortChanged={sortChanged}
                                 />
                             </div>
-                            {filteredPosts && filteredPosts.length > 0 ? (
-                                filteredPosts.map((post) => (
+                            {posts.data.map((post) => {
+                                return (
                                     <div key={post.id} className="my-6 p-4 rounded-lg bg-white shadow-sm sm:rounded-lg dark:bg-gray-800 transition-shadow">
                                         <div className="flex items-center mb-4">
                                             <img
-                                                src={post.user.profile_pic ? `/storage/${post.user.profile_pic}` : '/storage/images/default.png'}
+                                                src={post.user.profile_pic ? `${post.user.profile_pic}` : '/storage/images/default.png'}
                                                 alt="User Avatar"
                                                 className="w-12 h-12 rounded-full mr-4 object-cover border-2 border-blue-500"
                                             />
@@ -88,7 +89,6 @@ const Index = ({ auth, post }) => {
                                                 <p className="text-lg font-semibold text-gray-800 dark:text-white">
                                                     {post.user.name}
                                                 </p>
-
                                                 <div className='flex items-center gap-2'>
                                                     <p className="text-sm text-gray-600 dark:text-slate-200 capitalize">
                                                         {t(`status.${post.status}`)}
@@ -105,54 +105,22 @@ const Index = ({ auth, post }) => {
                                                 </div>
                                             </div>
                                         </div>
+                                        <h3 className="text-2xl font-semibold text-gray-800 dark:text-slate-500 mb-2">{post.content}</h3>
                                         {post.image_url && (
                                             <img
-                                                src={`/storage/${post.image_url}`}
+                                                src={post.image_url}
                                                 alt="Post Image"
                                                 className="w-full h-64 object-cover rounded-md mb-4"
                                             />
                                         )}
-                                        <h3 className="text-2xl font-semibold text-gray-800 dark:text-slate-500 mb-2">{post.content}</h3>
-                                        <div className="mt-4 flex space-x-4">
-                                            {post.user_id === auth.user.id && (
-                                                <>
-                                                    <Button variant="warning" onClick={() => openEditModal(post)}>
-                                                        {t('base.edit')}
-                                                    </Button>
-                                                    <Button
-                                                        type="button"
-                                                        variant="primary"
-                                                        onClick={() => openDeleteModal(post)}
-                                                    >
-                                                        {t('base.delete')}
-                                                    </Button>
-                                                </>
-                                            )}
-                                        </div>
                                         <div>
                                             <Comment />
                                         </div>
                                     </div>
-                                ))
-                            ) : (
-                                <p className="text-lg text-gray-600 dark:text-white">{t('post.nopost')}</p>
-                            )}
-                            <Modal show={isModalOpen} onClose={closeModal}>
-                                <div className="p-6">
-                                    <h2 className="text-2xl font-semibold mb-4 dark:text-white">
-                                        {selectedPost ? t('post.edit') : t('post.create')}
-                                    </h2>
-                                    {selectedPost ? (
-                                        <EditPostForm closeModal={closeModal} post={selectedPost} />
-                                    ) : (
-                                        <CreatePostForm
-                                            closeModal={closeModal} />
-                                    )}
-                                </div>
-                            </Modal>
-                            <Modal show={isDeleteModalOpen} onClose={closeDeleteModal}>
-                                <DeletePostForm post={postToDelete} closeModal={closeDeleteModal} />
-                            </Modal>
+                                )
+                            })
+                            }
+                            <Pagination links={posts.meta.links} />
                         </div>
                     </div>
                 </div>

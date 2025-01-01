@@ -12,7 +12,10 @@
         "create": "Create",
         "creating": "Creating",
         "updating": "Updating",
-        "deleting": "Deleting"
+        "deleting": "Deleting",
+        "created_at": "Created At",
+        "created_by": "Created By",
+        "no_posts_found": "There are no posts. Do you want to create a new post?"
     },
     "alert": {
         "text": "Language has been changed to English"
@@ -53,9 +56,13 @@
         "create": "Create New Post",
         "edit": "Edit Post",
         "content": "Content",
-        "status": "Status"
+        "status": "Status",
+        "trashed": "Trash",
+        "deleted_at": "Deleted At",
+        "created_at": "Created At"
     },
     "status": {
+        "select": "Select",
         "public": "Public",
         "private": "Private",
         "friend": "Friend"
@@ -65,5 +72,17 @@
         "name": "Sort by Name",
         "date": "Sort by Date",
         "mine": "My Posts"
+    },
+    "user": {
+        "created_at": "Created At"
+    },
+    "trash": {
+        "deleted": "Post deleted",
+        "restore": "Restore",
+        "force": "Force Delete",
+        "forceAll": "Clear All",
+        "restoreAll": "Restore All",
+        "task": "Task",
+        "para": "No posts have been deleted."
     }
 }

@@ -16,49 +16,26 @@ class User extends Authenticatable
         'profile_pic',
         'role'
     ];
-
     protected $hidden = [
         'password',
         'remember_token',
     ];
-
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-
-
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
     // Một người dùng có nhiều bài đăng
     public function posts()
     {
-        return $this->hasMany(Posts::class);
+        return $this->hasMany(Posts::class, 'created_by');
     }
-
     // Một người dùng có nhiều bình luận
     public function comments()
     {
         return $this->hasMany(Comment::class);
-    }
-
-    // Một người dùng có thể follow nhiều người khác
-    public function following()
-    {
-        return $this->belongsToMany(User::class, 'followers', 'user_id_1', 'user_id_2')
-                    ->withPivot('status')
-                    ->withTimestamps();
-    }
-
-    // Một người dùng có thể được follow bởi nhiều người
-    public function followers()
-    {
-        return $this->belongsToMany(User::class, 'followers', 'user_id_2', 'user_id_1')
-                    ->withPivot('status')
-                    ->withTimestamps();
-    }
-
-    // Một người dùng có thể react vào nhiều bài đăng hoặc bình luận
-    public function reactions()
-    {
-        return $this->hasMany(Reactions::class);
     }
 }

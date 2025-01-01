@@ -11,19 +11,12 @@ class PostsSeeder extends Seeder
 {
     public function run(): void
     {
-        $faker = Faker::create();
         $users = User::all();
-
         foreach ($users as $user) {
             for ($i = 0; $i < 1; $i++) {  
-                Posts::create([
+                Posts::factory()->count(1)->create([ 
                     'created_by' => $user->id,
                     'updated_by' => $user->id,
-                    'status' => $faker->randomElement(Posts::getStatus()),  
-                    'content' => $faker->paragraph,  
-                    'image_url' => $faker->imageUrl(), 
-                    'created_at' => now(), 
-                    'updated_at' => now(), 
                 ]);
             }
         }

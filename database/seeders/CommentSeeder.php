@@ -12,7 +12,6 @@ class CommentSeeder extends Seeder
 {
     public function run(): void
     {
-        $faker = Faker::create();
         $posts = Posts::all();
         $userId = User::inRandomOrder()->first()->id;
         foreach ($posts as $post) {

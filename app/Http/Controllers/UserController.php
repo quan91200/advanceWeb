@@ -10,11 +10,25 @@ use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
-    // Hiển thị danh sách tất cả người dùng
     public function index()
     {
-        $users = User::all();  
-        return UserResource::collection($users);  
+        $query = User::query();
+        $sortField = request("sort_field", 'created_at');
+        $sortDirection = request('sort_direction','desc');
+        if (request('name')) {
+            $query->where('name','like','%'. request('name') .'%');
+        }
+        if (request('email')) {
+            $query->where('email','like','%'. request('email') .'%');
+        }
+        $users = $query->orderBy($sortField, $sortDirection)
+            ->paginate(10)
+            ->onEachSide(1);  
+            return inertia("User/Index", [
+                "users" => UserResource::collection($users),
+                'queryParams' => request()->query() ?: null,
+                'success' => session('success'),
+            ]); 
     }
 
     // Hiển thị form tạo người dùng mới
@@ -25,22 +39,20 @@ class UserController extends Controller
 
     public function store(StoreUserRequest $request)
     {
-        $validated = $request->validated();
-
-        // Nếu có ảnh đại diện mới, lưu ảnh
-        $profilePic = $request->file('profile_pic') 
-            ? $request->file('profile_pic')->store('images', 'public') 
-            : null;
-
-        // Tạo người dùng mới
+        $data = $request->validated();
+        $data['email_verified_at'] = now();  
+        $data['password'] = bcrypt($data['password']);
+        if ($request->hasFile('profile_pic')) {
+            $data['profile_pic'] = $request->file('profile_pic')->store('images', 'public');
+        }
         User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => bcrypt($validated['password']),
-            'profile_pic' => $profilePic,
-            'role' => $validated['role'] ?? 'user', 
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => $data['password'],
+            'profile_pic' => $data['profile_pic'] ?? null, 
+            'role' => $data['role'] ?? 'user', 
+            'email_verified_at' => $data['email_verified_at'], 
         ]);
-
         return redirect()->route('users.index');
     }
 
@@ -52,36 +64,24 @@ class UserController extends Controller
 
     public function update(UpdateUserRequest $request, User $user)
     {
-        $validated = $request->validated();
-
-        // Nếu có ảnh đại diện mới, lưu ảnh và xóa ảnh cũ
+        $data = $request->validated();
+        if (isset($data['password']) && $data['password']) {
+            $data['password'] = bcrypt($data['password']);
+        } else {
+            unset($data['password']);  
+        }
         if ($request->hasFile('profile_pic')) {
-            // Xóa ảnh cũ nếu có
             if ($user->profile_pic) {
                 Storage::delete('public/' . $user->profile_pic);
             }
-            // Lưu ảnh mới
-            $profilePic = $request->file('profile_pic')->store('images', 'public');
-        } else {
-            // Giữ nguyên ảnh cũ nếu không có ảnh mới
-            $profilePic = $user->profile_pic;
+            $data['profile_pic'] = $request->file('profile_pic')->store('images', 'public');
         }
-
-        // Cập nhật thông tin người dùng
-        $user->update([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => $validated['password'] ? bcrypt($validated['password']) : $user->password,
-            'profile_pic' => $profilePic,
-        ]);
-
+        $user->update($data);
         return redirect()->route('users.index');
     }
-
     // Xóa người dùng
     public function destroy(User $user)
     {
-        // Xóa ảnh đại diện nếu có
         if ($user->profile_pic) {
             Storage::delete('public/' . $user->profile_pic);
         }

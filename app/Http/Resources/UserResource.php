@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Resources;
-
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
 class UserResource extends JsonResource
 {
-    public function toArray($request)
+    public static $wrap = false;
+    public function toArray(Request $request)
     {
         return [
             'id' => $this->id,
@@ -14,8 +15,8 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'profile_pic' => $this->profile_pic ? Storage::url($this->profile_pic) : asset('images/default.png'),
             'role' => $this->role,
-            'created_at' => $this->created_at->toDateTimeString(),
-            'updated_at' => $this->updated_at->toDateTimeString(),
+            'created_at' => $this->created_at->format('Y-m-d H:i:s'),
+            'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
         ];
     }
 }

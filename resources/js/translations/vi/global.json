@@ -12,7 +12,10 @@
         "create": "Tạo",
         "creating": "Đang tạo",
         "updating": "Đang cập nhật",
-        "deleting": "Đang xóa"
+        "deleting": "Đang xóa",
+        "created_at": "Thời gian tạo",
+        "created_by": "Người tạo",
+        "no_posts_found": "Không có bài viết nào. Bạn có muốn tạo bài viết mới không?"
 
     },
     "alert": {
@@ -54,9 +57,13 @@
         "create": "Tạo bài viết mới",
         "edit": "Sửa bài viết",
         "content": "Nội dung",
-        "status": "Trạng thái"
+        "status": "Trạng thái",
+        "trashed": "Thùng rác",
+        "deleted_at": "Ngày xóa",
+        "created_at": "Ngày tạo"
     },
     "status": {
+        "select": "Tùy chọn",
         "public": "Công khai",
         "private": "Riêng tư",
         "friend": "Chỉ Bạn bè"
@@ -66,5 +73,17 @@
         "name": "Theo tên",
         "date": "Theo ngày đăng",
         "mine": "Bài viết của tôi"
+    },
+    "user": {
+        "created_at": "Ngày tham gia"
+    },
+    "trash": {
+        "deleted": "Bài viết đã xóa",
+        "restore": "Khôi phục",
+        "force": "Xóa vĩnh viễn",
+        "forceAll": "Xóa vĩnh viễn tất cả",
+        "restoreAll": "Khôi phục tất cả",
+        "task": "Tác vụ",
+        "para": "Không có bài viết nào đã xóa."
     }
 }

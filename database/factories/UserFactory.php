@@ -22,6 +22,8 @@ class UserFactory extends Factory
             'profile_pic' => $this->faker->imageUrl(640, 480, 'people'),
             'role' => $this->faker->randomElement(['admin', 'user']),
             'remember_token' => Str::random(10),
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 

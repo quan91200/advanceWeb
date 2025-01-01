@@ -56,3 +56,10 @@ Hệ thống hóa cơ sở dữ liệu, cập nhật models, seeder, factories, 
 - Cập nhật models để hỗ trợ các mối quan hệ và validation.
 - Tạo seeder và factories cho dữ liệu mẫu.
 - Cập nhật controllers và requests để xử lý các nghiệp vụ liên quan đến dữ liệu.
+
+### `8. Hoàn thiện Post`
+
+- Bỏ table Follower, Reaction.
+- Hoàn thiện Create - Read - Update - Delete cho Post.
+- Bổ sung Trash, Restore, Force delete Post.
+- Bổ sung Reusable Component: SortButton.

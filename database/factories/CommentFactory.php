@@ -30,4 +30,8 @@ class CommentFactory extends Factory
             ];
         });
     }
+    public function withReplies(int $count = 3) 
+    {
+        return $this->has(Comment::factory()->count($count), 'replies');
+    }
 }
