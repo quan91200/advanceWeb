@@ -97,16 +97,15 @@ export default function Dashboard({ posts, auth, user }) {
                             </Button>
                         </div>
                         {posts.data.length === 0 ? (
-                            <div className="text-center py-8 flex flex-col items-center gap-2">
+                            <div className="text-center py-8 flex items-center gap-2 justify-center">
                                 <p className="text-lg text-gray-600 dark:text-gray-400">{t('base.no_posts_found')}</p>
 
-                                <Button variant='info'>
-                                    <Link
-                                        href={route("posts.create")}
-                                    >
-                                        {t('post.create')}
-                                    </Link>
-                                </Button>
+                                <Link
+                                    href={route("posts.create")}
+                                    className='underline text-blue-500 hover:text-white'
+                                >
+                                    {t('post.create')}
+                                </Link>
                             </div>
                         ) : (
                             posts.data.map((post) => {
@@ -127,7 +126,7 @@ export default function Dashboard({ posts, auth, user }) {
                                                 </p>
                                             </div>
                                         </div>
-                                        <div className='dark:bg-gray-950 p-3 rounded-lg'>
+                                        <div>
                                             <h3 className="text-2xl font-semibold text-gray-800 dark:text-slate-300 mb-3">{post.content}</h3>
                                             {post.image_url && (
                                                 <img
@@ -159,8 +158,8 @@ export default function Dashboard({ posts, auth, user }) {
                         )}
                     </div>
                 </div>
+                {posts.meta && posts.meta.links && <Pagination links={posts.meta.links} />}
             </div>
-            {posts.meta && posts.meta.links && <Pagination links={posts.meta.links} />}
             <Modal
                 show={showDeleteModal}
                 onClose={() => setShowDeleteModal(false)}

@@ -1,11 +1,10 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import { Head, router } from '@inertiajs/react'
 import { useTranslation } from 'react-i18next'
-import Comment from '@/Components/Comment'
 import Pagination from '@/Components/Pagination'
 import SortButton from '@/Components/SortButton'
 import TextInput from '@/Components/TextInput'
-import React from "react"
+import CommentIndex from '@/Components/Comment/Index'
 
 const Index = ({ auth, posts, queryParams = null }) => {
     const [t] = useTranslation("global")
@@ -114,7 +113,7 @@ const Index = ({ auth, posts, queryParams = null }) => {
                                             />
                                         )}
                                         <div>
-                                            <Comment />
+                                            <CommentIndex postId={post.id} initialComments={post.comments} />
                                         </div>
                                     </div>
                                 )

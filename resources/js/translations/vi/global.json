@@ -60,7 +60,11 @@
         "status": "Trạng thái",
         "trashed": "Thùng rác",
         "deleted_at": "Ngày xóa",
-        "created_at": "Ngày tạo"
+        "created_at": "Ngày tạo",
+        "created": "Bài viết được tạo thành công!",
+        "updated": "Cập nhật bài viết thành công!",
+        "deleted": "Xóa bài viết thành công!",
+        "error": "Đã có lỗi xảy ra!"
     },
     "status": {
         "select": "Tùy chọn",

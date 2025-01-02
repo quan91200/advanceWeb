@@ -1,11 +1,14 @@
 import { useForm, Head, Link } from '@inertiajs/react'
 import Button from '@/Components/Button'
+import Toast from '@/Components/Toast'
 import { useTranslation } from 'react-i18next'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 const Edit = ({ auth, posts }) => {
     const [t] = useTranslation("global")
+    const [toast, setToast] = useState(false)
+    const [toastMessage, setToastMessage] = useState('')
     const {
         data,
         setData,
@@ -33,8 +36,18 @@ const Edit = ({ auth, posts }) => {
             console.error("ID bài viết không hợp lệ")
             return
         }
-        put(route("posts.update", posts.data.id))
+        put(route("posts.update", posts.data.id), {
+            onSuccess: () => {
+                setToastMessage(t('post.updated'))
+                setToast(true)
+            },
+            onError: () => {
+                setToastMessage(t('post.error'))
+                setToast(true)
+            }
+        })
     }
+    const onClose = () => setToast(false)
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -98,6 +111,13 @@ const Edit = ({ auth, posts }) => {
                     </div>
                 </div>
             </div>
+            <Toast
+                message={toastMessage}
+                duration={2000}
+                pos='top-right'
+                onClose={onClose}
+                open={toast}
+            />
         </AuthenticatedLayout>
     )
 }

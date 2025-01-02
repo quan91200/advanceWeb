@@ -2,11 +2,21 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import { Head, Link, router } from '@inertiajs/react'
 import SortButton from '@/Components/SortButton'
 import Button from '@/Components/Button'
+import Toast from '@/Components/Toast'
 import { useTranslation } from 'react-i18next'
+import { useState } from 'react'
 
 const Trashed = ({ trashed, auth, queryParams }) => {
     const [t] = useTranslation("global")
     queryParams = queryParams || {}
+    const [toast, setToast] = useState(false)
+    const [toastMessage, setToastMessage] = useState('')
+
+    const showToast = (message) => {
+        setToastMessage(message)
+        setToast(true)
+    }
+
     const sortChanged = (name) => {
         const updatedParams = { ...queryParams }
         if (name === queryParams.sort_field) {
@@ -17,6 +27,35 @@ const Trashed = ({ trashed, auth, queryParams }) => {
         }
         router.get(route("posts.trashed", { userId: auth.user.id }), updatedParams)
     }
+
+    const handleRestore = (postId) => {
+        router.post(route('posts.restore', postId), {
+            onSuccess: () => showToast(t('trash.restoreSuccess')),
+            onError: () => showToast(t('trash.restoreError')),
+        })
+    }
+
+    const handleForceDelete = (postId) => {
+        router.post(route('posts.forceDelete', postId), {
+            onSuccess: () => showToast(t('trash.forceDeleteSuccess')),
+            onError: () => showToast(t('trash.forceDeleteError')),
+        })
+    }
+
+    const handleRestoreAll = () => {
+        router.post(route("posts.restoreAll", { userId: auth.user.id }), {
+            onSuccess: () => showToast(t('trash.restoreAllSuccess')),
+            onError: () => showToast(t('trash.restoreAllError')),
+        })
+    }
+
+    const handleForceDeleteAll = () => {
+        router.post(route("posts.forceDeleteAll", { userId: auth.user.id }), {
+            onSuccess: () => showToast(t('trash.forceDeleteAllSuccess')),
+            onError: () => showToast(t('trash.forceDeleteAllError')),
+        })
+    }
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -88,14 +127,16 @@ const Trashed = ({ trashed, auth, queryParams }) => {
                                             </td>
                                             <td className="px-6 py-4 text-sm font-medium">
                                                 <Link
-                                                    href={route('posts.restore', post.id)}
+                                                    href="#"
+                                                    onClick={() => handleRestore(post.id)}
                                                     className="text-blue-500 hover:text-indigo-900 dark:text-blue-500 dark:hover:text-indigo-600"
                                                 >
                                                     {t('trash.restore')}
                                                 </Link>
                                                 <span className="mx-2">|</span>
                                                 <Link
-                                                    href={route('posts.forceDelete', post.id)}
+                                                    href="#"
+                                                    onClick={() => handleForceDelete(post.id)}
                                                     className="text-red-500 hover:text-red-900 dark:text-red-500 dark:hover:text-red-600"
                                                 >
                                                     {t('trash.force')}
@@ -112,18 +153,17 @@ const Trashed = ({ trashed, auth, queryParams }) => {
                                 </tr>
                             )}
                         </tbody>
-
                     </table>
                     <div className='flex items-center gap-3 my-2 mr-10 justify-end'>
                         <Button
-                            onClick={() => router.post(route("posts.restoreAll", { userId: auth.user.id }))}
+                            onClick={handleRestoreAll}
                             variant='outlineInfo'
                         >
                             {t("trash.restoreAll")}
                         </Button>
 
                         <Button
-                            onClick={() => router.post(route("posts.forceDeleteAll", { userId: auth.user.id }))}
+                            onClick={handleForceDeleteAll}
                             variant='outlinePrimary'
                         >
                             {t("trash.forceAll")}
@@ -131,6 +171,13 @@ const Trashed = ({ trashed, auth, queryParams }) => {
                     </div>
                 </div>
             </div>
+            <Toast
+                message={toastMessage}
+                duration={2000}
+                pos='top-right'
+                onClose={() => setToast(false)}
+                show={toast}
+            />
         </AuthenticatedLayout>
     )
 }

@@ -4,34 +4,48 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
+use App\Http\Resources\CommentResource;
 use App\Models\Comment;
 use App\Models\Posts;
-use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
+    public function index()
+    {
+        $query = Comment::query();
+        $sortField = request("sort_field", 'created_at');
+        $sortDirection = request('sort_direction','desc');
+        if (request('created_at')) {
+            $query->whereDate("created_at", request('created_at'));
+        }
+        $comment = $query->orderBy($sortField, $sortDirection)->get();
+        return inertia("Comment/Index", [
+            'comment' => CommentResource::collection($comment),
+            'queryParams' => request()->query() ?: null,
+            'user' => auth()->user(),
+        ]);
+    }
+    public function create()
+    {
+        return inertia("Comment/Create");
+    }
     // Thêm bình luận mới vào bài đăng
     public function store(StoreCommentRequest $request, Posts $post)
     {   
-        Comment::create([
-            'post_id' => $post->id,
+        $data = $request->validated();
+        $post->comments()->create([
+            'content' => $data['content'],
+            'image_url' => $data['image_url'] ?? null,
             'created_by' => $request->user()->id,
             'updated_by' => $request->user()->id,
-            'content' => $request->content,
-            'image_url' => $request->image_url,
         ]);
-        $sortField = request("sort_field", 'created_at');
-        $sortDirection = request("sort_direction", "desc");
-        $query = $post->comments();
-
-        if (request("created_by")) {
-            $query->where("created_by", "like", "%" . request("created_by") . "%");
-        }
-        $comments = $query->orderBy($sortField, $sortDirection)->get();
+        $sortDirection = $request->input("sort_direction", "desc");
+        $comments = $post->comments()
+            ->orderBy('created_at', $sortDirection)
+            ->get();
 
         return redirect()->route('posts.show', $post->id)->with('comments', $comments);
     }
-
     // Chỉnh sửa bình luận
     public function edit(Comment $comment)
     {
@@ -43,8 +57,8 @@ class CommentController extends Controller
     {
         $validated = $request->validated();
         $comment->update([
-            'content' => $request->content,
-            'image_url' => $request->image_url,
+            'content' => $validated['content'],
+            'image_url' => $validated['image_url'] ?? null,
         ]);
         return redirect()->route('posts.show', $comment->post_id);
     }
@@ -52,6 +66,7 @@ class CommentController extends Controller
     // Xóa bình luận
     public function destroy(Comment $comment)
     {
+        $this->authorize('delete', $comment);
         $comment->delete();
         return redirect()->route('posts.show', $comment->post_id);
     }

@@ -63,3 +63,9 @@ Hệ thống hóa cơ sở dữ liệu, cập nhật models, seeder, factories, 
 - Hoàn thiện Create - Read - Update - Delete cho Post.
 - Bổ sung Trash, Restore, Force delete Post.
 - Bổ sung Reusable Component: SortButton.
+
+`
+php artisan route:clear
+php artisan cache:clear
+php artisan config:clear
+`

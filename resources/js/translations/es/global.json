@@ -59,7 +59,11 @@
         "status": "Status",
         "trashed": "Trash",
         "deleted_at": "Deleted At",
-        "created_at": "Created At"
+        "created_at": "Created At",
+        "created": "Post created successfully!",
+        "updated": "Post updated successfully!",
+        "deleted": "Post deleted successfully!",
+        "error": "Something went wrong!"
     },
     "status": {
         "select": "Select",

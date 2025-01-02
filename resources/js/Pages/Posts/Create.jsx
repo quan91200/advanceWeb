@@ -15,7 +15,6 @@ const Create = ({ auth }) => {
         e.preventDefault()
         post(route("posts.store"))
     }
-
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -75,7 +74,7 @@ const Create = ({ auth }) => {
 
                             <div className="flex justify-end gap-4">
                                 <Button variant="outlinePrimary" >
-                                    <Link href={route("posts.index")}>
+                                    <Link href={route("dashboard")}>
                                         {t('base.cancel')}
                                     </Link>
                                 </Button>

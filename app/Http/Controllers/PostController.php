@@ -38,14 +38,13 @@ class PostController extends Controller
     {
         return Inertia::render('Posts/Create');
     }
-    public function show(Posts $posts)
-    {   
-        $post = $posts->load(['comments.createdBy', 'comments.updatedBy']);
-        return inertia("Posts/Show", [
-            'post'=> new PostResource($posts),
+    public function show($id)
+    {
+        $post = Posts::with('comments')->findOrFail($id);
+        return response()->json([
+            'post' => new PostResource($post),
             'comments' => CommentResource::collection($post->comments),
-            'queryParams' => request()->query() ?: null,
-            'success'=> session('success'),
+            'comment_count' => $post->comment_count, 
         ]);
     }
     public function store(StorePostRequest $request)
@@ -61,8 +60,7 @@ class PostController extends Controller
             $data['image_url'] = null;
         }
         Posts::create($data);
-
-        return redirect()->route('dashboard')->with('success', 'Post created successfully!');
+        return redirect()->route('dashboard')->with('toast_message', 'Bài viết đã được tạo thành công!');
     }
     public function edit(Posts $post)
     {
