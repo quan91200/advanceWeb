@@ -1,0 +1,22 @@
+{
+  "name": "Laravel + React",
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "features": {
+    "node": "lts",
+    "docker": "latest"
+  },
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/bash"
+  },
+  "postCreateCommand": [
+    "composer install",
+    "npm install",
+    "npm run dev"
+  ],
+  "portsAttributes": {
+    "8000": {
+      "label": "Laravel App",
+      "onAutoForward": "openBrowser"
+    }
+  }
+}
