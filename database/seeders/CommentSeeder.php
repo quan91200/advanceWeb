@@ -5,31 +5,34 @@ namespace Database\Seeders;
 use App\Models\Comment;
 use App\Models\User;
 use App\Models\Posts;
-use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 
 class CommentSeeder extends Seeder
 {
-    public function run(): void
+    public function run()
     {
-        $posts = Posts::all();
-        $userId = User::inRandomOrder()->first()->id;
-        foreach ($posts as $post) {
-            $parentComments = Comment::factory(2)->create([
-                'post_id' => $post->id,
-                'created_by' => $userId,
-                'updated_by' => $userId
-                
-            ]);
+        // $users = User::all();
+        // $posts = Posts::all();
 
-            foreach ($parentComments as $parentComment) {
-                Comment::factory(1)->create([
-                    'post_id' => $post->id,
-                    'parent_id' => $parentComment->id,
-                    'created_by' => $userId,
-                    'updated_by' => $userId
-                ]);
-            }
-        }
+        // if ($users->isEmpty() || $posts->isEmpty()) {
+        //     $this->command->info('No users or posts found.');
+        //     return;
+        // }
+        // $posts->each(function ($post) use ($users) {
+        //     $randomUsers = $users->random(min(2, $users->count()));
+
+        //     foreach ($randomUsers as $user) {
+        //         // Tạo bình luận cha
+        //         $parentComment = Comment::factory()->create([
+        //             'post_id' => $post->id,
+        //             'user_id' => $user->id,
+        //         ]);
+        //         // Tạo bình luận con
+        //         Comment::factory()->child($parentComment->id)->create([
+        //             'post_id' => $post->id,
+        //             'user_id' => $user->id,
+        //         ]);
+        //     }
+        // });
     }
 }

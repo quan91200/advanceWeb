@@ -17,17 +17,24 @@ class PostController extends Controller
         $query = Posts::query();
         $sortField = request("sort_field", 'created_at');
         $sortDirection = request("sort_direction", "desc");
-        if (request("content")) {
-            $query->where("content", "like", "%" . request("content") . "%");
+
+        if ($content = request("content")) {
+            $query->where("content", "like", "%" . $content . "%");
         }
-        if (request("status")) {
-            $query->where("status", request("status"));
+
+        if ($status = request("status")) {
+            $query->where("status", $status);
         }
+
         $posts = $query->orderBy($sortField, $sortDirection)
             ->withCount('comments')
-            ->with('user') 
-            ->paginate(10)
+            ->with([
+                'user',
+                'comments',
+            ])
+            ->paginate(3)
             ->onEachSide(1);
+
         return inertia('Posts/Index', [
             'posts' => PostResource::collection($posts),
             'queryParams' => request()->query() ?: null,
@@ -40,11 +47,13 @@ class PostController extends Controller
     }
     public function show($id)
     {
-        $post = Posts::with('comments')->findOrFail($id);
+        $post = Posts::with(['user', 'comments'])
+            ->withCount('comments')
+            ->findOrFail($id);
         return response()->json([
             'post' => new PostResource($post),
             'comments' => CommentResource::collection($post->comments),
-            'comment_count' => $post->comment_count, 
+            'comment_count' => $post->comments_count, 
         ]);
     }
     public function store(StorePostRequest $request)
@@ -52,7 +61,7 @@ class PostController extends Controller
         $data = $request->validated();
         $data['created_by'] = Auth::id();
         $data['updated_by'] = Auth::id();
-        if ($request->hasFile('image_url')) {
+        if ($request->hasFile('image_url') && $request->file('image_url')->isValid()) {
             $file = $request->file('image_url');
             $image = $file->storeAs('posts', time() . '.' . $file->getClientOriginalExtension(), 'public');
             $data['image_url'] = $image;
@@ -60,7 +69,7 @@ class PostController extends Controller
             $data['image_url'] = null;
         }
         Posts::create($data);
-        return redirect()->route('dashboard')->with('toast_message', 'Bài viết đã được tạo thành công!');
+        return redirect()->route('dashboard');
     }
     public function edit(Posts $post)
     {
@@ -72,7 +81,7 @@ class PostController extends Controller
     public function update(UpdatePostRequest $request, Posts $post)
     {
         $data = $request->validated();
-        if ($request->hasFile('image_url')) {
+        if ($request->hasFile('image_url') && $request->file('image_url')->isValid()) {
             if ($post->image_url && Storage::exists('public/' . $post->image_url)) {
                 Storage::delete('public/' . $post->image_url);
             }
@@ -92,7 +101,10 @@ class PostController extends Controller
             Storage::delete('public/' . $post->image_url);
         }
         $post->delete();
-        return redirect()->route('dashboard');
+        return response()->json([
+            'message' => 'Post deleted successfully',
+            'success' => true,
+        ]);
     }
     public function trashed($userId)
     {   
@@ -108,7 +120,13 @@ class PostController extends Controller
         }        
         $trashed = $query->orderBy($sortField, $sortDirection)->paginate(10);
         return inertia('Posts/Trashed', [
-            'trashed' => $trashed,
+            'trashed' => PostResource::collection($trashed)->additional([
+                'meta' => [
+                    'current_page' => $trashed->currentPage(),
+                    'last_page' => $trashed->lastPage(),
+                    'total' => $trashed->total(),
+                ],
+            ]),
             'queryParams' => request()->query() ?: null,
         ]);
     }    

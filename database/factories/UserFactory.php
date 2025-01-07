@@ -16,21 +16,23 @@ class UserFactory extends Factory
     {
         return [
             'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
             'password' => bcrypt('password'),
             'name' => fake()->name(),
-            'profile_pic' => $this->faker->imageUrl(640, 480, 'people'),
+            'profile_pic' => $this->faker->optional()->imageUrl(300, 300, 'people'),
             'role' => $this->faker->randomElement(['admin', 'user']),
-            'remember_token' => Str::random(10),
             'created_at' => now(),
-            'updated_at' => now(),
         ];
     }
-
     public function unverified(): static
     {
         return $this->state(fn (array $attributes) => [
             'email_verified_at' => null,
+        ]);
+    }
+    public function withDefaultAvatar()
+    {
+        return $this->state([
+            'profile_pic' => 'images/default.png',
         ]);
     }
 }

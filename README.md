@@ -69,3 +69,8 @@ php artisan route:clear
 php artisan cache:clear
 php artisan config:clear
 `
+
+### `9. Quản lý cài đặt người dùng`
+
+- Bổ sung chế độ Darkmode và Multiple Language ở Backend.
+- Thêm thông tin người dùng (hobbies, dob, address, phone, job, relationship).

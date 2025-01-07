@@ -14,7 +14,13 @@ class User extends Authenticatable
         'name',
         'password',
         'profile_pic',
-        'role'
+        'role',
+        'hobbies',
+        'address',
+        'phoneNumber',
+        'dob',
+        'job',
+        'relationship'
     ];
     protected $hidden = [
         'password',
@@ -37,5 +43,10 @@ class User extends Authenticatable
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+    // Một người dùng có nhiều session
+    public function sessions()
+    {
+        return $this->hasMany(Sessions::class);
     }
 }

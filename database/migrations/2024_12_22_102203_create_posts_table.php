@@ -13,14 +13,12 @@ return new class extends Migration
             $table->text('content');
             $table->enum('status', ['public', 'private', 'friend'])->default('public')->index();
             $table->string('image_url', 255)->nullable();
-            $table->integer('comment_count')->default(0);
             $table->softDeletes();
-            $table->foreignId('created_by')->constrained('users');
-            $table->foreignId('updated_by')->constrained('users');
+            $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
+            $table->foreignId('updated_by')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
-
     public function down(): void
     {
         Schema::dropIfExists('posts');

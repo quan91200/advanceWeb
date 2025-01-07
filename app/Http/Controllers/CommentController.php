@@ -12,62 +12,42 @@ class CommentController extends Controller
 {
     public function index()
     {
-        $query = Comment::query();
-        $sortField = request("sort_field", 'created_at');
-        $sortDirection = request('sort_direction','desc');
-        if (request('created_at')) {
-            $query->whereDate("created_at", request('created_at'));
-        }
-        $comment = $query->orderBy($sortField, $sortDirection)->get();
-        return inertia("Comment/Index", [
-            'comment' => CommentResource::collection($comment),
-            'queryParams' => request()->query() ?: null,
-            'user' => auth()->user(),
-        ]);
+        $comments = Comment::with(['user', 'children.user'])->paginate(10);
+        return CommentResource::collection($comments);
     }
-    public function create()
+    public function show($id)
     {
-        return inertia("Comment/Create");
+        $comment = Comment::with(['user', 'children.user'])->findOrFail($id);
+        return new CommentResource($comment);
     }
     // Thêm bình luận mới vào bài đăng
     public function store(StoreCommentRequest $request, Posts $post)
     {   
-        $data = $request->validated();
-        $post->comments()->create([
-            'content' => $data['content'],
-            'image_url' => $data['image_url'] ?? null,
-            'created_by' => $request->user()->id,
-            'updated_by' => $request->user()->id,
+        $comment = $post->comments()->create([
+            'content' => $request->content,
+            'image_url' => $request->image,
+            'user_id' => $request->user()->id,
+            'parent_id' => $request->parent_id,
         ]);
-        $sortDirection = $request->input("sort_direction", "desc");
-        $comments = $post->comments()
-            ->orderBy('created_at', $sortDirection)
-            ->get();
-
-        return redirect()->route('posts.show', $post->id)->with('comments', $comments);
+        return new CommentResource($comment->load('user', 'children.user'));
     }
-    // Chỉnh sửa bình luận
-    public function edit(Comment $comment)
-    {
-        return view('comments.edit', compact('comment'));
-    }
-
     // Cập nhật bình luận
-    public function update(UpdateCommentRequest $request, Comment $comment)
+    public function update(UpdateCommentRequest $request, Comment $comment, Posts $post)
     {
-        $validated = $request->validated();
-        $comment->update([
-            'content' => $validated['content'],
-            'image_url' => $validated['image_url'] ?? null,
-        ]);
-        return redirect()->route('posts.show', $comment->post_id);
+        if ($this->authorize('update', $comment)) {
+            abort(403, 'Comment does not belong to this post.');
+        }
+        $comment->update($request->only('content', 'image_url'));
+        return new CommentResource($comment->load('user', 'children.user'));
     }
-
     // Xóa bình luận
-    public function destroy(Comment $comment)
+    public function destroy(Comment $comment, Posts $post)
     {
-        $this->authorize('delete', $comment);
+        if ($this->authorize('destroy', $comment)) {
+            abort(403, 'Comment does not belong to this post.');
+        }
+        $comment->children()->delete();
         $comment->delete();
-        return redirect()->route('posts.show', $comment->post_id);
+        return response()->json(['message' => 'Comment deleted successfully.'], 200);
     }
 }

@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 const Tooltip = ({
     children,
     content,
+    className = '',
     placement = 'bottom',
     delay = 200,
-    arrow = true,
     bgColor = 'black',
     animation = "fade"
 }) => {
@@ -29,34 +29,29 @@ const Tooltip = ({
         switch (placement) {
             case 'top':
                 return {
-                    contentClasses: 'bottom-full left-1/2 transform -translate-x-1/2 mb-2',
-                    arrowClasses: 'border-t-4 border-l-4 border-r-4 border-b-4 border-solid border-transparent bottom-[-4px] left-1/2 transform -translate-x-1/2 -rotate-45 absolute'
+                    contentClasses: 'bottom-full left-1/2 transform mb-1',
                 }
             case 'bottom':
                 return {
-                    contentClasses: 'top-full left-1/2 transform -translate-x-1/2 mt-2',
-                    arrowClasses: 'border-b-4 border-l-4 border-r-4 border-t-4 border-solid border-transparent top-[-4px] left-1/2 transform -translate-x-1/2 -rotate-45 absolute'
+                    contentClasses: 'top-full left-1/2 transform mt-1',
                 }
             case 'left':
                 return {
-                    contentClasses: 'right-full top-1/2 transform -translate-y-1/2 mr-2',
-                    arrowClasses: 'border-l-4 border-t-4 border-b-4 border-r-4 border-solid border-transparent right-[-4px] top-1/2 transform -translate-y-1/2 -rotate-45 absolute'
+                    contentClasses: 'right-full top-1/2 transform -translate-y-1/2 mr-1',
                 }
             case 'right':
                 return {
-                    contentClasses: 'left-full top-1/2 transform -translate-y-1/2 ml-2',
-                    arrowClasses: 'border-r-4 border-t-4 border-b-4 border-l-4 border-solid border-transparent left-[-4px] top-1/2 transform -translate-y-1/2 -rotate-45 absolute'
+                    contentClasses: 'left-full top-1/2 transform -translate-y-1/2 ml-1',
                 }
             default:
                 return {
-                    contentClasses: 'bottom-full left-1/2 transform -translate-x-1/2 mb-2',
-                    arrowClasses: 'border-t-4 border-l-4 border-r-4 border-b-4 border-solid border-transparent bottom-[-4px] left-1/2 transform -translate-x-1/2 -rotate-45 absolute'
+                    contentClasses: 'bottom-full left-1/2 transform mb-1',
                 }
 
         }
     }
 
-    const { contentClasses, arrowClasses } = getPositionClasses()
+    const { contentClasses } = getPositionClasses()
 
     return (
         <div
@@ -69,20 +64,13 @@ const Tooltip = ({
             {visible && (
                 <div
                     ref={tooltipRef}
-                    className={`absolute text-white p-2 rounded text-sm whitespace-nowrap z-10 ${contentClasses}`}
+                    className={`absolute text-white p-2 rounded text-sm whitespace-nowrap z-10 ${contentClasses} ${className}`}
                     style={{
                         animation: animation === "fade" ? "fadeIn 0.2s ease-out" : "scaleUp 0.2s ease-out",
                         backgroundColor: bgColor
                     }}
                 >
                     {content}
-                    {arrow &&
-                        <div
-                            className={arrowClasses}
-                            style={{
-                                backgroundColor: bgColor
-                            }}
-                        />}
                 </div>
             )}
         </div>
@@ -91,7 +79,8 @@ const Tooltip = ({
 
 Tooltip.propTypes = {
     children: PropTypes.node.isRequired,
-    content: PropTypes.string.isRequired,
+    content: PropTypes.node.isRequired,
+    className: PropTypes.string,
     placement: PropTypes.oneOf(['top', 'right', 'bottom', 'left']),
     delay: PropTypes.number,
     arrow: PropTypes.bool,

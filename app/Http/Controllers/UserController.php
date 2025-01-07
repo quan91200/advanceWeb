@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Http\Resources\UserResource;  
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -21,22 +22,22 @@ class UserController extends Controller
         if (request('email')) {
             $query->where('email','like','%'. request('email') .'%');
         }
+        if (request()->has('dark_mode')) {
+            session(['dark_mode' => request('dark_mode')]);
+        }
         $users = $query->orderBy($sortField, $sortDirection)
             ->paginate(10)
             ->onEachSide(1);  
-            return inertia("User/Index", [
-                "users" => UserResource::collection($users),
-                'queryParams' => request()->query() ?: null,
-                'success' => session('success'),
-            ]); 
+        $darkMode = auth()->user()->dark_mode ?? false;
+        $language = auth()->user()->language ??'en';
+        return inertia("User/Index", [
+            "user" => UserResource::collection($users),
+            'queryParams' => request()->query() ?: null,
+            'success' => session('success'),
+            'dark_mode' => $darkMode,
+            'language' => $language,
+        ]); 
     }
-
-    // Hiển thị form tạo người dùng mới
-    public function create()
-    {
-        return view('users.create');
-    }
-
     public function store(StoreUserRequest $request)
     {
         $data = $request->validated();
@@ -53,15 +54,23 @@ class UserController extends Controller
             'role' => $data['role'] ?? 'user', 
             'email_verified_at' => $data['email_verified_at'], 
         ]);
-        return redirect()->route('users.index');
+        return redirect()->route('user.index');
     }
-
-    // Hiển thị form chỉnh sửa thông tin người dùng
+    public function show($id)
+    {
+        $user = User::with(['sessions', 'posts', 'comments'])
+            ->withCount(['posts', 'comments', 'sessions'])
+            ->findOrFail($id);
+        return inertia('User/Show', [
+            'user' => new UserResource($user),
+        ]);
+    }
     public function edit(User $user)
     {
-        return view('users.edit', compact('user'));
+        return inertia('User/Edit',[
+            'user' => new UserResource($user),
+        ]);
     }
-
     public function update(UpdateUserRequest $request, User $user)
     {
         $data = $request->validated();
@@ -77,9 +86,8 @@ class UserController extends Controller
             $data['profile_pic'] = $request->file('profile_pic')->store('images', 'public');
         }
         $user->update($data);
-        return redirect()->route('users.index');
+        return redirect()->route('user.show', ['user' => auth()->id()]);
     }
-    // Xóa người dùng
     public function destroy(User $user)
     {
         if ($user->profile_pic) {
@@ -89,15 +97,38 @@ class UserController extends Controller
 
         return redirect()->route('users.index');
     }
-
-    // Lấy ảnh đại diện của người dùng
     public function getProfilePic($user)
     {
-        // Kiểm tra xem người dùng có avatar không
         if ($user->profile_pic) {
             return Storage::url($user->profile_pic);
         }
-        // Nếu không có avatar -> ảnh mặc định
-        return asset('images/default.png');
+        return asset('storage/public/images/default.png');
+    }
+    // Darkmode
+    public function updateDarkmode(Request $request)
+    {
+        $request->validate([
+            'dark_mode' => 'required|boolean',
+        ]);
+        $user = auth()->user();
+        $user->dark_mode = $request->dark_mode;
+        $user->save();
+        return response()->json([
+            'message' => 'Dark mode updated successfully.',
+            'dark_mode' => $user->dark_mode,
+        ]);
+    }
+    // Multiple Language
+    public function updateLanguage(Request $request)
+    {
+        $request->validate([
+            'language' => 'required|string|in:en,vn',
+        ]);
+
+        $user = auth()->user();
+        $user->language = $request->language;
+        $user->save();
+
+        return response()->json(['message' => 'Language updated successfully!']);
     }
 }

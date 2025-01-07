@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next'
 export default function DeleteUserForm({ className = '' }) {
     const [confirmingUserDeletion, setConfirmingUserDeletion] = useState(false)
     const passwordInput = useRef()
-    const [t, i18n] = useTranslation('global')
+    const [t] = useTranslation('global')
     const {
         data,
         setData,
@@ -48,26 +48,26 @@ export default function DeleteUserForm({ className = '' }) {
         <section className={`space-y-6 ${className}`}>
             <header>
                 <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
-                    {t('delete.title')}
+                    {t('profile.account.title')}
                 </h2>
 
                 <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                    {t('delete.para')}
+                    {t('profile.account.para')}
                 </p>
             </header>
 
             <Button onClick={confirmUserDeletion} variant='primary'>
-                {t('delete.title')}
+                {t('profile.account.title')}
             </Button>
 
             <Modal show={confirmingUserDeletion} onClose={closeModal}>
                 <form onSubmit={deleteUser} className="p-6">
                     <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
-                        {t('delete.ask')}
+                        {t('profile.account.ask')}
                     </h2>
 
                     <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                        {t('delete.desc')}
+                        {t('profile.account.desc')}
                     </p>
 
                     <div className="mt-6">
@@ -88,7 +88,8 @@ export default function DeleteUserForm({ className = '' }) {
                             }
                             className="mt-1 block w-3/4"
                             isFocused
-                            placeholder="Password"
+                            required
+                            placeholder={t('profile.account.password')}
                         />
 
                         <InputError
@@ -99,11 +100,11 @@ export default function DeleteUserForm({ className = '' }) {
 
                     <div className="mt-6 flex justify-end">
                         <Button onClick={closeModal} variant='info'>
-                            {t('base.cancel')}
+                            {t('button.cancel')}
                         </Button>
 
                         <Button className="ms-3" variant='primary'>
-                            {t('delete.title')}
+                            {t('button.delete')}
                         </Button>
                     </div>
                 </form>

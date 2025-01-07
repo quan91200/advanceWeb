@@ -13,7 +13,7 @@ class UpdateCommentRequest extends FormRequest
     public function rules()
     {
         return [
-           'content' => 'nullable|string|min:5|max:1000|required_without:image_url',
+            'content' => 'nullable|string|min:5|max:1000|required_without:image_url',
             'image_url' => 'nullable|url|required_without:content',
         ];
     }

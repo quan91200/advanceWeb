@@ -55,6 +55,7 @@ const Toast = ({
         outlineInfo: <IoInformationCircleOutline className="text-blue-500 text-xl" />,
         outlineWarning: <IoWarningOutline className="text-yellow-500 text-xl" />,
     }
+    const animationDuration = `${duration}ms`
 
     return (
         <div
@@ -73,7 +74,9 @@ const Toast = ({
                 <div
                     className="absolute bottom-0 left-0 h-1 bg-white opacity-50 w-full rounded-full"
                     style={{
-                        animation: `progress ${duration}ms linear`,
+                        animationDuration: animationDuration,
+                        animationName: "progress",
+                        animationTimingFunction: "linear",
                     }}
                 ></div>
             )}

@@ -49,17 +49,17 @@ export default function UpdatePasswordForm({ className = '' }) {
         <section className={className}>
             <header>
                 <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
-                    {t("password.title")}
+                    {t("profile.password.title")}
                 </h2>
 
                 <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                    {t("password.para")}
+                    {t("profile.password.desc")}
                 </p>
             </header>
 
             <form onSubmit={updatePassword} className="mt-6 space-y-6">
                 <div>
-                    <InputLabel htmlFor="current_password" value={t("password.curPass")} />
+                    <InputLabel htmlFor="current_password" value={t("profile.password.current")} />
                     <div className="relative">
                         <TextInput
                             id="current_password"
@@ -85,7 +85,7 @@ export default function UpdatePasswordForm({ className = '' }) {
                 </div>
 
                 <div>
-                    <InputLabel htmlFor="password" value={t("password.newPass")} />
+                    <InputLabel htmlFor="password" value={t("profile.password.new")} />
                     <div className="relative">
                         <TextInput
                             id="password"
@@ -107,7 +107,7 @@ export default function UpdatePasswordForm({ className = '' }) {
                 </div>
 
                 <div>
-                    <InputLabel htmlFor="password_confirmation" value={t("password.firmPass")} />
+                    <InputLabel htmlFor="password_confirmation" value={t("profile.password.confirm")} />
                     <div className="relative">
                         <TextInput
                             id="password_confirmation"
@@ -122,7 +122,7 @@ export default function UpdatePasswordForm({ className = '' }) {
                 </div>
 
                 <div className="flex items-center">
-                    <Button variant='warning'>{t("base.save")}</Button>
+                    <Button variant='warning'>{t("button.save")}</Button>
                 </div>
                 <Toast
                     open={showToast}

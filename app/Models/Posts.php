@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Posts extends Model
 {
     use HasFactory, SoftDeletes;
+    protected $with = ['comments', 'user'];
     const STATUS_PUBLIC = 'public';
     const STATUS_PRIVATE = 'private';
     const STATUS_FRIEND = 'friend';
@@ -16,29 +17,13 @@ class Posts extends Model
         'status',
         'content',
         'image_url',
-        'comment_count',
         'created_by',
         'updated_by',
     ];
-    protected $casts = [
-        'comment_count' => 'integer',
-    ];
-    protected $attributes = [
-        'comment_count' => 0,
-    ];
     // Quan hệ: 1 Bài đăng thuộc về một người dùng
-    public function createdBy()
-    {
-        return $this->belongsTo(User::class, 'created_by');
-    }
     public function user()
     {
-        return $this->createdBy();
-    }
-    // Quan hệ: 1 Bài đăng được chỉnh sửa bởi một người dùng
-    public function updatedBy()
-    {
-        return $this->belongsTo(User::class, 'updated_by');
+        return $this->belongsTo(User::class, 'created_by');
     }
     // Quan hệ: Một bài đăng có nhiều bình luận
     public function comments()
@@ -65,6 +50,9 @@ class Posts extends Model
         parent::boot();
         static::deleting(function ($post) {
             $post->comments()->delete();
+        });
+        static::restoring(function ($post) {
+            $post->comments()->restore();
         });
     }
 }

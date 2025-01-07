@@ -18,7 +18,6 @@ class PostsFactory extends Factory
             'status' => $this->faker->randomElement(['public', 'private', 'friend']),
             'content' => $this->faker->text(200),
             'image_url' => $this->faker->imageUrl(800, 600, 'nature'),
-            'comment_count' => $this->faker->numberBetween(0, 1000),
         ];
     }
 }

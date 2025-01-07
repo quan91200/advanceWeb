@@ -2,7 +2,6 @@ import InputError from '@/Components/InputError'
 import InputLabel from '@/Components/InputLabel'
 import Button from '@/Components/Button'
 import TextInput from '@/Components/TextInput'
-import Toast from '@/Components/Toast'
 import Tooltip from '@/Components/Tooltip'
 import { Link, useForm, usePage, router } from '@inertiajs/react'
 import { useState } from 'react'
@@ -26,8 +25,7 @@ export default function UpdateProfileInformation({
     const [avatar, setAvatar] = useState(
         user.profile_pic ? `/storage/${user.profile_pic}` : '/images/default.png'
     )
-    const [showToast, setShowToast] = useState(false)
-    const [t, i18n] = useTranslation("global")
+    const [t] = useTranslation("global")
 
     const handleAvatarChange = (e) => {
         const file = e.target.files[0]
@@ -48,7 +46,6 @@ export default function UpdateProfileInformation({
 
         router.post(route('profile.update'), formData, {
             method: 'patch',
-            onSuccess: () => setShowToast(true),
         })
     }
 
@@ -56,16 +53,16 @@ export default function UpdateProfileInformation({
         <section className={className}>
             <header>
                 <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
-                    {t('profile.title')}
+                    {t('profile.edit.title')}
                 </h2>
                 <p className="my-1 text-sm text-gray-600 dark:text-gray-400">
-                    {t('profile.para')}
+                    {t('profile.edit.desc')}
                 </p>
             </header>
 
             <form onSubmit={submit} className="mt-6 space-y-6">
                 <div>
-                    <InputLabel htmlFor="avatar" value={t('profile.avatar')} />
+                    <InputLabel htmlFor="avatar" value={t('profile.edit.avatar')} />
                     <div
                         className="relative h-36 w-36"
                         onMouseEnter={() => setIsHovered(true)}
@@ -86,21 +83,21 @@ export default function UpdateProfileInformation({
                                     onChange={handleAvatarChange}
                                     className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                                 />
-                                <span className="text-white text-sm">{t('updateProfile.avt')}</span>
+                                <span className="text-white text-sm">{t('profile.edit.avatar')}</span>
                             </div>
                         )}
                     </div>
                 </div>
                 <div className='opacity-45 relative'>
                     <Tooltip
-                        content={t('profile.toast1')}
+                        content={t('profile.edit.roleToast')}
                         placement="right"
                         arrow={true}
                         delay={300}
                         animation="fade"
                         bgColor="rgba(0,0,0,0.8)"
                     >
-                        <InputLabel htmlFor="role" value={t('profile.role')} />
+                        <InputLabel htmlFor="role" value={t('profile.edit.role')} />
                     </Tooltip>
                     <TextInput
                         value={user.role}
@@ -109,7 +106,7 @@ export default function UpdateProfileInformation({
                     />
                 </div>
                 <div>
-                    <InputLabel htmlFor="name" value={t('profile.name')} />
+                    <InputLabel htmlFor="name" value={t('profile.edit.name')} />
                     <TextInput
                         id="name"
                         className="my-1 block w-full"
@@ -123,7 +120,7 @@ export default function UpdateProfileInformation({
                 </div>
 
                 <div>
-                    <InputLabel htmlFor="email" value={t('profile.email')} />
+                    <InputLabel htmlFor="email" value={t('profile.edit.email')} />
                     <TextInput
                         id="email"
                         type="email"
@@ -139,35 +136,28 @@ export default function UpdateProfileInformation({
                 {mustVerifyEmail && user.email_verified_at === null && (
                     <div>
                         <p className="mt-2 text-sm text-gray-800 dark:text-gray-200">
-                            {t('profile.text1')}
+                            {t('profile.edit.emailVerifiedToast')}
                             <Link
                                 href={route('verification.send')}
                                 method="post"
                                 as="button"
                                 className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800"
                             >
-                                {t('profile.text2')}
+                                {t('profile.edit.emailVerified')}
                             </Link>
                         </p>
 
                         {status === 'verification-link-sent' && (
                             <div className="mt-2 text-sm font-medium text-green-600 dark:text-green-400">
-                                {t('profile.text3')}
+                                {t('profile.edit.emailFirm')}
                             </div>
                         )}
                     </div>
                 )}
 
                 <div className="flex items-center">
-                    <Button variant='success'>{t('base.save')}</Button>
+                    <Button variant='success'>{t('button.save')}</Button>
                 </div>
-                <Toast
-                    open={showToast}
-                    onClose={() => setShowToast(false)}
-                    message={t('profile.toast')}
-                    type="success"
-                    pos="top-right"
-                />
             </form>
         </section>
     )

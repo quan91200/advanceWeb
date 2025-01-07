@@ -18,7 +18,7 @@ class UpdateUserRequest extends FormRequest
             'name' => 'required|max:255',
             'email' => 'required|email|unique:users,email,' . $this->route('user')->id,
             'password' => 'nullable|min:8|confirmed',
-            'profile_pic' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'profile_pic' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5120',
         ];
     }
 }

@@ -34,7 +34,6 @@ export default function Login({ status, canResetPassword }) {
             <form onSubmit={submit}>
                 <div>
                     <InputLabel htmlFor="email" value="Email" />
-
                     <TextInput
                         id="email"
                         type="email"
@@ -45,10 +44,8 @@ export default function Login({ status, canResetPassword }) {
                         isFocused={true}
                         onChange={(e) => setData('email', e.target.value)}
                     />
-
                     <InputError message={errors.email} className="mt-2" />
                 </div>
-
                 <div className="mt-4">
                     <InputLabel htmlFor="password" value="Password" />
 
@@ -61,10 +58,8 @@ export default function Login({ status, canResetPassword }) {
                         autoComplete="current-password"
                         onChange={(e) => setData('password', e.target.value)}
                     />
-
                     <InputError message={errors.password} className="mt-2" />
                 </div>
-
                 <div className="mt-4 block">
                     <label className="flex items-center">
                         <Checkbox
@@ -79,7 +74,6 @@ export default function Login({ status, canResetPassword }) {
                         </span>
                     </label>
                 </div>
-
                 <div className="mt-4 flex items-center justify-end">
                     {canResetPassword && (
                         <Link
@@ -89,7 +83,6 @@ export default function Login({ status, canResetPassword }) {
                             Forgot your password?
                         </Link>
                     )}
-
                     <Button className="ms-4" variant='primary'>
                         Log in
                     </Button>

@@ -1,93 +1,136 @@
 {
-    "base": {
-        "save": "Lưu",
-        "dashboard": "Trang chủ",
-        "post": "Không gian bài viết",
-        "profile": "Hồ sơ cá nhân",
+    "dashboard": "Trang chủ",
+    "no_posts_found": "Không có bài viết nào. Bạn có muốn tạo bài viết mới không?",
+    "no_posts": "Không tìm thấy bài viết",
+    "no_users": "Không tìm thấy người dùng",
+    "posts": "Bài đăng",
+    "users": "Người dùng",
+    "total_users": "Tổng số người dùng",
+    "total_posts": "Tổng số bài đăng",
+    "button": {
+        "language": "Ngôn ngữ",
+        "setting": "Cài đặt",
+        "login": "Đăng nhập",
+        "register": "Đăng ký",
         "logout": "Đăng xuất",
-        "cancel": "Hủy",
+        "create": "Tạo",
+        "update": "Cập nhật",
         "edit": "Sửa",
         "delete": "Xóa",
-        "update": "Cập nhật",
-        "create": "Tạo",
         "creating": "Đang tạo",
         "updating": "Đang cập nhật",
         "deleting": "Đang xóa",
-        "created_at": "Thời gian tạo",
-        "created_by": "Người tạo",
-        "no_posts_found": "Không có bài viết nào. Bạn có muốn tạo bài viết mới không?"
-
-    },
-    "alert": {
-        "text": "Ngôn ngữ đã thay đổi thành Tiếng Việt"
-    },
-    "password": {
-        "curPass": "Mật khẩu hiện tại",
-        "newPass": "Mật khẩu mới",
-        "firmPass": "Xác nhận mật khẩu",
-        "title": "Cập nhật mật khẩu",
-        "para": "Đảm bảo tài khoản của bạn sử dụng mật khẩu dài, ngẫu nhiên để đảm bảo an toàn.",
-        "role": "Trường này hiển thị vai trò hiện tại của bạn và không thể thay đổi.",
-        "toast": "Mật khẩu được cập nhật thành công!"
-    },
-    "profile": {
-        "avatar": "Ảnh đại diện",
-        "role": "Quyền hạn",
-        "name": "Tên người dùng",
-        "email": "Email",
-        "title": "Cập nhật thông tin cá nhân",
-        "para": "Cập nhật thông tin hồ sơ tài khoản của bạn.",
-        "avt": "Thay ảnh",
-        "text1": "Địa chỉ email của bạn chưa được xác minh.",
-        "text2": "Nhấp vào đây để gửi lại email xác minh.",
-        "text3": "Một liên kết xác minh mới đã được gửi đến địa chỉ email của bạn.",
-        "toast": "Cập nhật thông tin thành công!",
-        "toast1": "Trường này hiển thị vai trò hiện tại của bạn và không thể thay đổi."
-    },
-    "delete": {
-        "title": "Xóa tài khoản",
-        "para": "Sau khi tài khoản của bạn bị xóa, tất cả tài nguyên và dữ liệu của tài khoản đó sẽ bị xóa vĩnh viễn. Trước khi xóa tài khoản, vui lòng tải xuống bất kỳ dữ liệu hoặc thông tin nào mà bạn muốn giữ lại.",
-        "ask": "Bạn có chắc chắn muốn xóa tài khoản của mình không?",
-        "desc": "Sau khi tài khoản của bạn bị xóa, tất cả tài nguyên và dữ liệu của tài khoản đó sẽ bị xóa vĩnh viễn. Vui lòng nhập mật khẩu của bạn để xác nhận bạn muốn xóa vĩnh viễn tài khoản của mình."
-    },
-    "post": {
-        "delete": "Xóa bài đăng",
-        "desc": "Bạn có chắc muốn xóa bài đăng này không?",
-        "nopost": "Không có bài viết nào có sẵn.",
-        "create": "Tạo bài viết mới",
-        "edit": "Sửa bài viết",
-        "content": "Nội dung",
-        "status": "Trạng thái",
+        "cancel": "Hủy",
         "trashed": "Thùng rác",
-        "deleted_at": "Ngày xóa",
-        "created_at": "Ngày tạo",
-        "created": "Bài viết được tạo thành công!",
-        "updated": "Cập nhật bài viết thành công!",
-        "deleted": "Xóa bài viết thành công!",
-        "error": "Đã có lỗi xảy ra!"
-    },
-    "status": {
-        "select": "Tùy chọn",
-        "public": "Công khai",
-        "private": "Riêng tư",
-        "friend": "Chỉ Bạn bè"
-    },
-    "sort": {
-        "all": "Tất cả bài viết",
-        "name": "Theo tên",
-        "date": "Theo ngày đăng",
-        "mine": "Bài viết của tôi"
-    },
-    "user": {
-        "created_at": "Ngày tham gia"
-    },
-    "trash": {
-        "deleted": "Bài viết đã xóa",
         "restore": "Khôi phục",
+        "restoreAll":"Khôi phục tất cả",
         "force": "Xóa vĩnh viễn",
         "forceAll": "Xóa vĩnh viễn tất cả",
-        "restoreAll": "Khôi phục tất cả",
-        "task": "Tác vụ",
-        "para": "Không có bài viết nào đã xóa."
+        "save": "Lưu",
+        "saving": "Đang lưu"
+    },
+    "post": {
+        "status": {
+            "select": "Tùy chọn",
+            "public": "Công khai",
+            "private": "Riêng tư",
+            "friend": "Chỉ bạn bè"
+        },
+        "index":  {
+            "title": "Không gian bài viết",
+            "createdAt": "Thời gian tạo",
+            "createdBy": "Người tạo",
+            "search": "Tìm kiếm . . ."
+        },
+        "create": {
+            "title": "Tạo bài viết mới",
+            "content": "Nhập nội dung ở đây!",
+            "status": "Chọn trạng thái",
+            "image": "Tải lên hình ảnh"
+        },
+        "edit": {
+            "title": "Chỉnh sửa bài đăng",
+            "content": "Sửa nội dung ở đây!",
+            "status": "Sửa trạng thái",
+            "image": "Thay hình ảnh"
+        },
+        "delete": {
+            "title": "Bạn có chắc muốn xóa bài đăng này không?"
+        },
+        "trashed": {
+            "title": "Thùng rác",
+            "content": "Nội dung",
+            "image": "Ảnh",
+            "deletedAt": "Ngày xóa",
+            "task": "Tác vụ",
+            "noTrash": "Không có bài viết nào đã xóa."
+        }
+    },
+    "profile": {
+        "title": "Trang cá nhân",
+        "edit": {
+            "title": "Cập nhật thông tin cá nhân",
+            "desc": "Cập nhật thông tin hồ sơ tài khoản của bạn.",
+            "avatar": "Thay ảnh đại diện",
+            "role": "Quyền hạn",
+            "name": "Tên người dùng",
+            "email": "Email",
+            "avt": "Thay ảnh",
+            "emailVerifiedToast": "Địa chỉ email của bạn chưa được xác minh.",
+            "emailVerified": "Nhấp vào đây để gửi lại email xác minh.",
+            "emailFirm": "Một liên kết xác minh mới đã được gửi đến địa chỉ email của bạn.",
+            "roleToast": "Trường này hiển thị vai trò hiện tại của bạn và không thể thay đổi."
+        },
+        "password": {
+            "current": "Mật khẩu hiện tại",
+            "new": "Mật khẩu mới",
+            "confirm": "Xác nhận mật khẩu",
+            "title": "Cập nhật mật khẩu",
+            "desc": "Đảm bảo tài khoản của bạn sử dụng mật khẩu dài, ngẫu nhiên để đảm bảo an toàn."
+        },
+        "account": {
+            "title": "Xóa tài khoản",
+            "para": "Sau khi tài khoản của bạn bị xóa, tất cả tài nguyên và dữ liệu của tài khoản đó sẽ bị xóa vĩnh viễn. Trước khi xóa tài khoản, vui lòng tải xuống bất kỳ dữ liệu hoặc thông tin nào mà bạn muốn giữ lại.",
+            "ask": "Bạn có chắc chắn muốn xóa tài khoản của mình không?",
+            "desc": "Sau khi tài khoản của bạn bị xóa, tất cả tài nguyên và dữ liệu của tài khoản đó sẽ bị xóa vĩnh viễn. Vui lòng nhập mật khẩu của bạn để xác nhận bạn muốn xóa vĩnh viễn tài khoản của mình.",
+            "password": "Vui lòng nhập mật khẩu"
+        }
+    },
+    "user": {
+        "title": "Xem hồ sơ",
+        "created_at": "Ngày tham gia",
+        "show": {
+            "info": "Hồ sơ",
+            "intro": "Giới thiệu",
+            "work": "Công việc",
+            "education": "Giáo dục",
+            "home": "Quê quán",
+            "hobbies": "Sở thích",
+            "relationship": "Mối quan hệ",
+            "dob": "Sinh nhật",
+            "sessions": "Phiên đăng nhập",
+            "posts": "Bài đăng",
+            "photos": "Hình ảnh",
+            "ip_address": "Địa chỉ IP",
+            "user_agent": "Thiết bị",
+            "last_activity": "Lần đăng nhập cuối",
+            "no_active": "Không có phiên đăng nhập nào"
+        }
+    },
+    "toast": {
+        "lang": "Ngôn ngữ đã được thay đổi thành Tiếng Việt",
+        "dark": "Đã chuyển sang chế độ tối",
+        "light": "Đã chuyển sang chế độ sáng"
+    },
+    "setting": {
+        "account": "Trung tâm tài khoản",
+        "details": "Thông tin cá nhân",
+        "security": "Mật khẩu và bảo mật",
+        "verifi": "Xác thực",
+        "mode": "Chế độ tối"
+    },
+    "mode": {
+        "dark": "Bật",
+        "light": "Tắt"
     }
 }

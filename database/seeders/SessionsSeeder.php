@@ -12,23 +12,23 @@ class SessionsSeeder extends Seeder
 {
     public function run(): void
     {
-        $faker = Faker::create();
+        // $faker = Faker::create();
 
-        $users = User::all();
+        // $users = User::all();
 
-        foreach ($users as $user) {
-            $payload = json_encode([
-                '_token' => Str::random(60),
-                '_flash' => ['old' => [], 'new' => []],
-            ]);
+        // foreach ($users as $user) {
+        //     $payload = json_encode([
+        //         '_token' => Str::random(60),
+        //         '_flash' => ['old' => [], 'new' => []],
+        //     ]);
 
-            Sessions::create([
-                'user_id' => $user->id,
-                'ip_address' => $faker->ipv4, 
-                'user_agent' => $faker->userAgent,
-                'payload' => $payload,  
-                'last_activity' => time(), 
-            ]);
-        }
+        //     Sessions::create([
+        //         'user_id' => $user->id,
+        //         'ip_address' => $faker->ipv4, 
+        //         'user_agent' => $faker->userAgent,
+        //         'payload' => $payload,  
+        //         'last_activity' => time(), 
+        //     ]);
+        // }
     }
 }

@@ -14,24 +14,19 @@ class CommentFactory extends Factory
     public function definition()
     {
         return [
+            'content' => $this->faker->sentence(),
+            'image_url' => $this->faker->optional()->imageUrl(640, 480, 'cats'),
             'post_id' => Posts::factory(),
+            'user_id' => User::factory(),
             'parent_id' => null,
-            'content' => $this->faker->text(100),
-            'image_url' => $this->faker->imageUrl(640, 480, 'animals'),
-            'created_by' => User::factory(),
-            'updated_by' => User::factory(), 
         ];
     }
-    public function withParent(Comment $parent)
+    public function child($parentId)
     {
-        return $this->state(function (array $attributes) use ($parent) {
+        return $this->state(function () use ($parentId) {
             return [
-                'parent_id' => $parent->id,
+                'parent_id' => $parentId,
             ];
         });
-    }
-    public function withReplies(int $count = 3) 
-    {
-        return $this->has(Comment::factory()->count($count), 'replies');
     }
 }

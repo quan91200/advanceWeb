@@ -10,13 +10,23 @@ rememberToken	    VARCHAR(100)	    Ghi nhớ Token - authentication
 profile_pic	        VARCHAR(255)	    Đường dẫn tới ảnh đại diện của người dùng
 role                ENUM('admin',       authorization 
                             'user')
+hobbies             TEXT                Sở thích
+address             VARCHAR(255)        Địa chỉ
+phoneNumber         VARCHAR(255)        Số điện thoại
+dob                 DATE                Năm sinh
+job                 VARCHAR(255)        Công việc
+relationship        VARCHAR(255)        Mối quan hệ
+dark_mode           TINYINT(1)          Chế độ tối
+language            VARCHAR(10)         Đa ngôn ngữ (Multiple Language)
 created_at	        TIMESTAMP	        Thời gian tạo tài khoản
 updated_at	        TIMESTAMP	        Thời gian cập nhật thông tin tài khoản
+
 2. password_reset_token
 Column              Type                Description
 email               VARCHAR(255)        Primary key NOTNULL
 token               VARCHAR(255)        NOTNULL OTP
 created_at          TIMESTAMP           Lưu trữ thời gian khi token được tạo ra
+
 3. Sessions
 Column              Type                Description
 id                  INT                 Primary key NOTNULL
@@ -25,6 +35,7 @@ ip_address          VARCHAR(45)         Địa chỉ IP khi đăng nhập
 user_agent          TEXT                Lưu trữ thông tin về trình duyệt và môi trường của người dùng
 payload             LONGTEXT            Lưu trữ dữ liệu lớn, chẳng hạn như thông tin chi tiết về sự kiện hoặc dữ liệu bổ sung dạng văn bản, không giới hạn.
 last_activity       INT                 Lưu trữ thời gian hoạt động cuối cùng dưới dạng số nguyên
+
 4. Posts
 Column	            Type	            Description
 id	                INT	                Primary key Tự động tăng
@@ -38,6 +49,7 @@ image_url           VARCHAR(255)        Đường dẫn hình ảnh
 created_at	        TIMESTAMP	        Thời gian bình luận
 updated_at	        TIMESTAMP	        Thời gian cập nhật bài viết
 comment_count	    INT	                Số lượt bình luận bài viết
+
 5. Comments
 Column	            Type	            Description
 id	                INT	                Primary key tự động tăng

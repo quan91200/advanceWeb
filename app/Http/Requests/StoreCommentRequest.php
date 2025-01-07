@@ -8,13 +8,14 @@ class StoreCommentRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return true; // Cho phép tất cả người dùng tạo bình luận
+        return true;
     }
     public function rules()
     {
         return [
-           'content' => 'nullable|string|min:5|max:1000|required_without:image_url',
+            'content' => 'nullable|string|min:5|max:1000|required_without:image_url',
             'image_url' => 'nullable|url|required_without:content',
+            'parent_id' => 'nullable|exists:comments,id'
         ];
     }
 }

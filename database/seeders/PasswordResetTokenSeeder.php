@@ -11,14 +11,14 @@ class PasswordResetTokenSeeder extends Seeder
 {
     public function run(): void
     {
-        $users = User::all();
+        // $users = User::all();
 
-        foreach ($users as $user) {
-            Password_Reset_Token::create([
-                'email' => $user->email,
-                'token' => Str::random(60),  
-                'created_at' => now(),      
-            ]);
-        }
+        // foreach ($users as $user) {
+        //     Password_Reset_Token::create([
+        //         'email' => $user->email,
+        //         'token' => Str::random(60),  
+        //         'created_at' => now(),      
+        //     ]);
+        // }
     }
 }
