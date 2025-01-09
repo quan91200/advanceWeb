@@ -24,6 +24,7 @@ const Show = ({ user }) => {
         month: 'numeric',
         year: 'numeric',
     })
+    console.log(user)
     const [showDeleteModal, setShowDeleteModal] = useState(false)
     const [postToDelete, setPostToDelete] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
