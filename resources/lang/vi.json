@@ -1,0 +1,137 @@
+{
+    "dashboard": "Trang chủ",
+    "no_posts_found": "Không có bài viết nào. Bạn có muốn tạo bài viết mới không?",
+    "no_posts": "Không tìm thấy bài viết",
+    "no_users": "Không tìm thấy người dùng",
+    "posts": "Bài đăng",
+    "users": "Người dùng",
+    "total_users": "Tổng số người dùng",
+    "total_posts": "Tổng số bài đăng",
+    "button": {
+        "language": "Ngôn ngữ",
+        "setting": "Cài đặt",
+        "login": "Đăng nhập",
+        "register": "Đăng ký",
+        "logout": "Đăng xuất",
+        "create": "Tạo",
+        "update": "Cập nhật",
+        "edit": "Sửa",
+        "delete": "Xóa",
+        "creating": "Đang tạo",
+        "updating": "Đang cập nhật",
+        "deleting": "Đang xóa",
+        "cancel": "Hủy",
+        "trashed": "Thùng rác",
+        "restore": "Khôi phục",
+        "restoreAll":"Khôi phục tất cả",
+        "force": "Xóa vĩnh viễn",
+        "forceAll": "Xóa vĩnh viễn tất cả",
+        "save": "Lưu",
+        "saving": "Đang lưu"
+    },
+    "post": {
+        "status": {
+            "select": "Tùy chọn",
+            "public": "Công khai",
+            "private": "Riêng tư",
+            "friend": "Chỉ bạn bè"
+        },
+        "index":  {
+            "title": "Không gian bài viết",
+            "createdAt": "Thời gian tạo",
+            "createdBy": "Người tạo",
+            "search": "Tìm kiếm . . ."
+        },
+        "create": {
+            "title": "Tạo bài viết mới",
+            "content": "Nhập nội dung ở đây!",
+            "status": "Chọn trạng thái",
+            "image": "Tải lên hình ảnh"
+        },
+        "edit": {
+            "title": "Chỉnh sửa bài đăng",
+            "content": "Sửa nội dung ở đây!",
+            "status": "Sửa trạng thái",
+            "image": "Thay hình ảnh"
+        },
+        "delete": {
+            "title": "Bạn có chắc muốn xóa bài đăng này không?"
+        },
+        "trashed": {
+            "title": "Thùng rác",
+            "content": "Nội dung",
+            "image": "Ảnh",
+            "deletedAt": "Ngày xóa",
+            "task": "Tác vụ",
+            "noTrash": "Không có bài viết nào đã xóa."
+        }
+    },
+    "profile": {
+        "title": "Trang cá nhân",
+        "edit": {
+            "title": "Cập nhật thông tin cá nhân",
+            "desc": "Cập nhật thông tin hồ sơ tài khoản của bạn.",
+            "avatar": "Thay ảnh đại diện",
+            "role": "Quyền hạn",
+            "name": "Tên người dùng",
+            "email": "Email",
+            "avt": "Thay ảnh",
+            "emailVerifiedToast": "Địa chỉ email của bạn chưa được xác minh.",
+            "emailVerified": "Nhấp vào đây để gửi lại email xác minh.",
+            "emailFirm": "Một liên kết xác minh mới đã được gửi đến địa chỉ email của bạn.",
+            "roleToast": "Trường này hiển thị vai trò hiện tại của bạn và không thể thay đổi."
+        },
+        "password": {
+            "current": "Mật khẩu hiện tại",
+            "new": "Mật khẩu mới",
+            "confirm": "Xác nhận mật khẩu",
+            "title": "Cập nhật mật khẩu",
+            "desc": "Đảm bảo tài khoản của bạn sử dụng mật khẩu dài, ngẫu nhiên để đảm bảo an toàn."
+        },
+        "account": {
+            "title": "Xóa tài khoản",
+            "para": "Sau khi tài khoản của bạn bị xóa, tất cả tài nguyên và dữ liệu của tài khoản đó sẽ bị xóa vĩnh viễn. Trước khi xóa tài khoản, vui lòng tải xuống bất kỳ dữ liệu hoặc thông tin nào mà bạn muốn giữ lại.",
+            "ask": "Bạn có chắc chắn muốn xóa tài khoản của mình không?",
+            "desc": "Sau khi tài khoản của bạn bị xóa, tất cả tài nguyên và dữ liệu của tài khoản đó sẽ bị xóa vĩnh viễn. Vui lòng nhập mật khẩu của bạn để xác nhận bạn muốn xóa vĩnh viễn tài khoản của mình.",
+            "password": "Vui lòng nhập mật khẩu"
+        }
+    },
+    "user": {
+        "title": "Xem hồ sơ",
+        "created_at": "Ngày tham gia",
+        "show": {
+            "info": "Hồ sơ",
+            "intro": "Giới thiệu",
+            "work": "Công việc",
+            "education": "Giáo dục",
+            "home": "Quê quán",
+            "hobbies": "Sở thích",
+            "relationship": "Mối quan hệ",
+            "dob": "Sinh nhật",
+            "sessions": "Phiên đăng nhập",
+            "posts": "Bài đăng",
+            "photos": "Hình ảnh",
+            "ip_address": "Địa chỉ IP",
+            "user_agent": "Thiết bị",
+            "last_activity": "Lần đăng nhập cuối",
+            "no_active": "Không có phiên đăng nhập nào"
+        }
+    },
+    "toast": {
+        "lang": "Ngôn ngữ đã được thay đổi thành Tiếng Việt",
+        "dark": "Đã chuyển sang chế độ tối",
+        "light": "Đã chuyển sang chế độ sáng",
+        "profile_updated": "Thông tin của bạn đã được cập nhật thành công."
+    },
+    "setting": {
+        "account": "Trung tâm tài khoản",
+        "details": "Thông tin cá nhân",
+        "security": "Mật khẩu và bảo mật",
+        "verifi": "Xác thực",
+        "mode": "Chế độ tối"
+    },
+    "mode": {
+        "dark": "Bật",
+        "light": "Tắt"
+    }
+}

@@ -1,0 +1,144 @@
+{
+    "dashboard": "Dashboard",
+    "no_posts_found": "There are no posts. Do you want to create a new post?",
+    "no_posts": "No posts found",
+    "no_users": "no users found",
+    "posts": "Posts",
+    "users": "Users",
+    "total_users": "Total Users",
+    "total_posts": "Total Posts",
+    "button": {
+        "language": "Language",
+        "setting": "Settings",
+        "login": "Login",
+        "register": "Register",
+        "logout": "Log out",
+        "create": "Create",
+        "update": "Update",
+        "edit": "Edit",
+        "delete": "Delete",
+        "creating": "Creating",
+        "updating": "Updating",
+        "deleting": "Deleting",
+        "cancel": "Cancel",
+        "trashed": "Trash",
+        "restore": "Restore",
+        "restoreAll":"Restore All",
+        "force": "Force Delete",
+        "forceAll": "Clear All",
+        "save": "Save",
+        "saving": "Saving"
+    },
+    "post": {
+        "status": {
+            "select": "Select",
+            "public": "Public",
+            "private": "Private",
+            "friend": "Friend"
+        },
+        "toast": {
+            "updated":"Post updated successfully!",
+            "error":"Something went wrong!",
+            "created":"Post created successfully!",
+            "deleted": "Post deleted successfully!"
+        },
+        "index":  {
+            "title": "Article Space",
+            "createdAt": "Created At",
+            "createdBy": "Created By",
+            "search": "Search . . ."
+        },
+        "create": {
+            "title": "Create New Post",
+            "content": "Enter content here!",
+            "status": "Select status",
+            "image": "Upload an image"
+        },
+        "edit": {
+            "title": "Edit Post",
+            "content": "Edit content here!",
+            "status": "Edit status",
+            "image": "Change photo"
+        },
+        "delete": {
+            "title": "Are you sure you want to delete this post?"
+        },
+        "trashed": {
+            "title": "Trashed",
+            "content": "Content",
+            "image": "Image",
+            "deletedAt": "Deleted At",
+            "task": "Task",
+            "noTrash": "No posts have been deleted."
+        }
+    },
+    "profile": {
+        "title": "Personal Site",
+        "edit": {
+            "title": "Update personal information",
+            "desc": "Update your account's profile information.",
+            "avatar": "Change Avatar",
+            "role": "Role",
+            "name": "Name",
+            "email": "Email",
+            "avt": "Change Avatar",
+            "emailVerifiedToast": "Your email address is unverified.",
+            "emailVerified": "Click here to re-send the verification email.",
+            "emailFirm": "A new verification link has been sent to your email address.",
+            "confirm": "Profile updated successfully!",
+            "roleToast": "This field displays your current role and cannot be changed."
+        },
+        "password": {
+            "current": "Curent Password",
+            "new": "New Password",
+            "confirm": "Confirm Password",
+            "title": "Update Password",
+            "desc": "Ensure your account is using a long, random password to stay secure."
+        },
+        "account": {
+            "title": "Delete Account",
+            "para": "Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.",
+            "ask": "Are you sure you want to delete your account?",
+            "desc": "Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.",
+            "password": "Please enter password"
+        }
+    },
+    "user": {
+        "title": "View Profile",
+        "created_at": "Joined On",
+        "show": {
+            "info": "Infomation",
+            "intro": "Introduce",
+            "work": "Work",
+            "education": "Education",
+            "home": "Home Town",
+            "hobbies": "Hobbies",
+            "relationship": "Relationship",
+            "dob": "Date of Birth",
+            "sessions": "Sessions",
+            "posts": "Posts",
+            "photos": "Photos",
+            "ip_address": "IP Address",
+            "user_agent": "User Agent",
+            "last_activity": "Last Activity",
+            "no_active": "No active sessions"
+        }
+    },
+    "toast": {
+        "lang": "Language has been changed to English",
+        "dark": "Switched to dark mode",
+        "light": "Switched to light mode",
+        "profile_updated": "Your profile has been successfully updated."
+    },
+    "setting": {
+        "account": "Account Center",
+        "details": "Personal details",
+        "security": "Password and security",
+        "verifi": "Verification",
+        "mode": "Dark mode"
+    },
+    "mode": {
+        "dark": "On",
+        "light": "Off"
+    }
+}

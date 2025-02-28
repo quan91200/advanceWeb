@@ -1,0 +1,24 @@
+{
+    "name": "Laravel Codespace",
+    "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+    "features": {
+        "docker-in-docker": "latest"
+    },
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "laravel.test",
+    "workspaceFolder": "/workspaces/advanceWeb",
+    "shutdownAction": "stopCompose",
+    "postCreateCommand": "composer install && php artisan key:generate && php artisan migrate --seed && npm install",
+    "forwardPorts": [80, 5173, 3306],
+    "remoteEnv": {
+        "DB_HOST": "mysql"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-azuretools.vscode-docker",
+                "ms-vscode-remote.remote-containers"
+            ]
+        }
+    }
+}
