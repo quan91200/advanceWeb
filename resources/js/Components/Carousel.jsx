@@ -30,7 +30,7 @@ const Carousel = ({ images, autoSlide = true, interval = 3000 }) => {
         <div className="overflow-hidden relative w-full">
             <div className="flex items-center relative w-full">
                 <button
-                    className="hover:bg-gray-800 rounded-full text-white p-2 absolute left-2 z-[2]"
+                    className="dark:hover:bg-gray-800 hover:bg-gray-300 rounded-full dark:text-white p-2 absolute left-2 z-[2]"
                     onClick={prevSlide}
                 >
                     <GrFormPrevious size={25} />
@@ -55,7 +55,7 @@ const Carousel = ({ images, autoSlide = true, interval = 3000 }) => {
                     ))}
                 </div>
                 <button
-                    className="hover:bg-gray-800 rounded-full text-white p-2 z-[2] absolute right-2"
+                    className="dark:hover:bg-gray-800 hover:bg-gray-300 rounded-full dark:text-white p-2 z-[2] absolute right-2"
                     onClick={nextSlide}
                 >
                     <GrFormNext size={25} />
@@ -64,7 +64,7 @@ const Carousel = ({ images, autoSlide = true, interval = 3000 }) => {
                     {images.map((_, index) => (
                         <span
                             key={index}
-                            className={`h-3 w-3 rounded-full cursor-pointer ${index === currentIndex ? "bg-gray-800" : "bg-gray-300"
+                            className={`h-3 w-3 rounded-full cursor-pointer ${index === currentIndex ? "dark:bg-blue-600 bg-blue-500" : "dark:bg-gray-300 bg-gray-500"
                                 }`}
                             onClick={() => setCurrentIndex(index)}
                         ></span>

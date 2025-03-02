@@ -5,7 +5,7 @@ import ModalPost from '@/Components/ModalPost'
 const Basic = ({ post }) => {
     const [showModal, setShowModal] = useState(false)
     return (
-        <div className="bg-white shadow-md dark:bg-gray-800 rounded-lg p-4 my-4 dark:text-gray-50">
+        <div className="bg-gray-200 shadow-md dark:bg-gray-800 rounded-lg p-4 my-4 dark:text-gray-50">
             <div className="flex items-center mb-4">
                 <img
                     src={post.user.profile_pic}

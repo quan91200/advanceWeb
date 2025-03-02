@@ -2,3 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+.clip-hexagon {
+    clip-path: polygon(
+        50% 0%,   /* Đỉnh trên */
+        100% 25%, /* Góc phải trên */
+        100% 75%, /* Góc phải dưới */
+        50% 100%, /* Đáy */
+        0% 75%,   /* Góc trái dưới */
+        0% 25%    /* Góc trái trên */
+    );
+}
+
+body {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}

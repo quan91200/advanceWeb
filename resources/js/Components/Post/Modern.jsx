@@ -8,7 +8,7 @@ import { FaShare } from "react-icons/fa"
 const Modern = ({ post }) => {
     const [showModal, setShowModal] = useState(false)
     return (
-        <div className="bg-gray-100 dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-6">
+        <div className="bg-gray-200 dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-6">
             <div className="flex items-center space-x-4 mb-4">
                 <img
                     src={post.user.profile_pic}

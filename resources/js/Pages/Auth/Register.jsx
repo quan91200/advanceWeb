@@ -1,13 +1,15 @@
 import InputError from '@/Components/InputError'
 import InputLabel from '@/Components/InputLabel'
 import TextInput from '@/Components/TextInput'
+import Button from '@/Components/Button'
 import GuestLayout from '@/Layouts/GuestLayout'
 import { Head, Link, useForm } from '@inertiajs/react'
 import { media } from '@/assets/images'
-import Button from '@/Components/Button'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 export default function Register() {
+    const { t } = useTranslation()
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',
@@ -39,7 +41,7 @@ export default function Register() {
                 </div>
                 <div className='flex items-center justify-center w-1/2 dark:bg-black opacity-95 relative'>
                     <GuestLayout>
-                        <h3 className='flex justify-center text-xl dark:text-gray-400'>Welcome</h3>
+                        <h3 className='flex justify-center text-xl dark:text-gray-400'>{t('desc.register.welcome')}</h3>
                         <form onSubmit={submit} className='px-10'>
                             <div>
                                 <InputLabel htmlFor="name" value="Name" />
@@ -119,7 +121,7 @@ export default function Register() {
 
                             <div className="my-4 flex items-center justify-end">
                                 <Button disabled={processing} variant='primary'>
-                                    Register
+                                    {t('button.register')}
                                 </Button>
                             </div>
                         </form>
@@ -137,7 +139,7 @@ export default function Register() {
                                     className='underline hover:text-gray-600 cursor-pointer'
                                     href={route('login')}
                                 >
-                                    Login
+                                    {t('button.login')}
                                 </Link>
                             </div>
                         )}

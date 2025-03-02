@@ -1,0 +1,242 @@
+{
+    "button": {
+        "cancel": "Hủy",
+        "login": "Đăng nhập",
+        "register": "Đăng ký",
+        "logout": "Đăng xuất",
+        "editDetails": "Sửa chi tiết",
+        "edit": "Sửa",
+        "delete": "Xóa",
+        "create": "Tạo bài đăng",
+        "setting": "Cài đặt",
+        "addFriend": "Thêm bạn",
+        "trash": "Thùng rác",
+        "seeAll": "Xem Tất Cả",
+        "comment": "Bình luận",
+        "share": "Chia sẻ",
+        "react": "Cảm xúc",
+        "report": "Báo cáo",
+        "hide": "Ẩn",
+        "next": "Tiếp",
+        "previous": "Trở lại",
+        "backToDashboard": "quay lại Bảng điều khiển",
+        "backToSetting": "quay lại Cài đặt",
+        "save": "Lưu",
+        "confirm": "Xác nhận",
+        "back": "Trở lại",
+        "done": "Xong",
+        "vi": "Tiếng Việt",
+        "en": "Tiếng Anh",
+        "dark": "Chế độ tối",
+        "light": "Chế độ sáng",
+        "creating": "Đang tạo ...",
+        "updating": "Đang cập nhật ...",
+        "update": "Cập nhật"
+    },
+    "title": {
+        "premium": "Premium",
+        "hobbies": "Sở thích",
+        "editInfor": "Chỉnh sửa thông tin",
+        "updatePass": "Cập nhật mật khẩu",
+        "deleteACc": "Xóa tài khoản",
+        "editProfile": "Chỉnh sửa hồ sơ",
+        "phone": "Số điện thoại",
+        "dob": "Ngày sinh",
+        "gender": "Giới tính",
+        "job": "Công việc",
+        "relationship": "Tình trạng quan hệ",
+        "upload": "Tải ảnh lên",
+        "status": "Trạng thái",
+        "password": "Mật khẩu",
+        "confirmPassword": "Xác nhận mật khẩu",
+        "dashboard": "Bảng điều khiển",
+        "post": "Bài đăng",
+        "friend": "Bạn bè",
+        "group": "Nhóm",
+        "notification": "Thông báo",
+        "accountCenter": "Trung tâm tài khoản",
+        "language": "Ngôn ngữ",
+        "contactInfor": "Thông tin liên lạc",
+        "bio": "Tiểu sử",
+        "recentPost": "Bài viết gần đây",
+        "skillinter": "Kỹ năng và sở thích",
+        "connectWithMeOn": "Kết nối với tôi trên",
+        "producsBy": "Sản phẩm của",
+        "yourFriend": "Bạn của bạn",
+        "people": "Những người bạn có thể biết",
+        "developing": "Đang phát triển",
+        "personal": "Thông tin cá nhân",
+        "security": "Mật khẩu và Bảo mật",
+        "verify": "Xác minh",
+        "options": "Tùy chọn",
+        "emotions": "Tùy chọn Cảm xúc",
+        "object": "Chế độ Đối tượng và Hiển thị",
+        "block": "Chặn",
+        "comAndPolicy": "Tiêu chuẩn cộng đồng và chính sách pháp lý",
+        "community": "Tiêu chuẩn cộng đồng",
+        "terms": "Điều khoản dịch vụ",
+        "privacy": "Chính sách bảo mật",
+        "content": "Nội dung",
+        "restore": "Khôi phục",
+        "restoreAll": "Khôi phục tất cả",
+        "deleteAll": "Xóa tất cả"
+    },
+    "desc": {
+        "bio": "Tiểu sử chưa được thiết lập",
+        "job": "Công việc vẫn chưa được thiết lập",
+        "relationship": "Mối quan hệ vẫn chưa được thiết lập",
+        "hobbies": "Sở thích vẫn chưa được thiết lập",
+        "password": {
+            "confirm": "Đây là khu vực an toàn của ứng dụng. Vui lòng xác nhận mật khẩu của bạn trước khi tiếp tục.",
+            "forgot": "Quên mật khẩu? Không vấn đề gì. Chỉ cần cho chúng tôi biết địa chỉ email của bạn và chúng tôi sẽ gửi cho bạn liên kết đặt lại mật khẩu cho phép bạn chọn mật khẩu mới.",
+            "reset": "Đặt lại mật khẩu",
+            "update": "Đảm bảo tài khoản của bạn sử dụng mật khẩu dài và ngẫu nhiên để đảm bảo an toàn."
+        },
+        "email": {
+            "reset": "Liên kết đặt lại mật khẩu Email",
+            "verify": "Cảm ơn bạn đã đăng ký! Trước khi bắt đầu, bạn có thể xác minh địa chỉ email của mình bằng cách nhấp vào liên kết mà chúng tôi vừa gửi qua email cho bạn không? Nếu bạn không nhận được email, chúng tôi sẽ vui lòng gửi cho bạn một email khác.",
+            "status": "Một liên kết xác minh mới đã được gửi đến địa chỉ email mà bạn cung cấp khi đăng ký.",
+            "resend": "Gửi lại Email xác minh"
+        },
+        "login": {
+            "welcome": "Chào mừng trở lại",
+            "remember": "Nhớ tôi nhé",
+            "forgot": "Quên mật khẩu?"
+        },
+        "register": {
+            "welcome": "Chào mừng"
+        },
+        "developing": "Tính năng này hiện đang được phát triển và sẽ sớm được cập nhật. Vui lòng kiểm tra lại sớm!",
+        "noHobbies": "Bạn chưa có sở thích nào cả. Hãy thêm vào nhé!",
+        "addHobbies": "Thêm sở thích của bạn",
+        "editHobbies": "Sửa sở thích của bạn",
+        "yourHobbies": "Sở thích của bạn",
+        "noPost": "Không có bài viết nào có sẵn",
+        "trash": {
+                "restore": "Bạn có chắc chắn muốn khôi phục bài viết này không?",
+                "restoreAll": "Bạn có chắc chắn muốn khôi phục tất cả bài viết không?",
+                "delete": "Bạn có chắc chắn muốn xóa bài viết này vĩnh viễn không?",
+                "deleteAll": "Bạn có chắc chắn muốn xóa tất cả bài đăng vĩnh viễn không?"
+        },
+        "setting": {
+            "delete": "Sau khi tài khoản của bạn bị xóa, tất cả tài nguyên và dữ liệu của tài khoản đó sẽ bị xóa vĩnh viễn. Trước khi xóa tài khoản, vui lòng tải xuống bất kỳ dữ liệu hoặc thông tin nào mà bạn muốn giữ lại.",
+            "q": "Bạn có chắc chắn muốn xóa tài khoản của mình không?",
+            "del": "Sau khi tài khoản của bạn bị xóa, tất cả tài nguyên và dữ liệu của tài khoản đó sẽ bị xóa vĩnh viễn. Vui lòng nhập mật khẩu của bạn để xác nhận bạn muốn xóa vĩnh viễn tài khoản của mình."
+        },
+        "profile": {
+            "personal": "Cập nhật thông tin hồ sơ tài khoản và địa chỉ email của bạn.",
+            "changeAvt": "Thay đổi Avatar",
+            "name": "Tên",
+            "email": "Email",
+            "verify": "Địa chỉ email của bạn chưa được xác minh.",
+            "click": "Nhấp vào đây để gửi lại email xác minh.",
+            "new": "Một liên kết xác minh mới đã được gửi tới địa chỉ email của bạn."
+        }
+    },
+    "status": {
+        "public": "Công khai",
+        "private": "Riêng tư",
+        "friend": "Bạn bè"
+    },
+    "trash": {
+        "id": "ID",
+        "image": "Ảnh",
+        "action": "Hành động",
+        "noImage": "Không có ảnh",
+        "noTrash": "Không tìm thấy bài viết nào bị xóa."
+    },
+    "gender": {
+        "male": "Nam",
+        "female": "Nữ",
+        "other": "Khác"
+    },
+    "relationship": {
+        "single": "Độc thân",
+        "married": "Đã cưới",
+        "divorced": "Đã ly hôn",
+        "complicated": "Phức tạp"
+    },
+    "notification": {
+        "mark": "Đánh dấu tất cả là đã đọc",
+        "clear": "Xóa tất cả",
+        "noti": "Cài đặt thông báo",
+        "all": "Tất cả",
+        "unread": "Chưa đọc",
+        "noNoti": "Chưa có thông báo nào cả!"
+    },
+    "plans": {
+        "free": "Free",
+        "premium": "Premium",
+        "individual": {
+            "name": "Cá nhân",
+            "price": "$9.99/tháng",
+            "description": "Dành cho cá nhân muốn trải nghiệm đầy đủ tính năng.",
+            "features": [
+                "Truy cập toàn bộ nội dung",
+                "Không quảng cáo",
+                "Hỗ trợ 24/7"
+            ]
+        },
+        "communicate": {
+            "name": "Giao tiếp",
+            "price": "$19.99/tháng",
+            "description": "Dành cho nhóm nhỏ cần chia sẻ và cộng tác.",
+            "features": [
+                "Tất cả từ Cá nhân",
+                "Chia sẻ tài khoản nhóm",
+                "Bảng điều khiển nâng cao"
+            ]
+        },
+        "business": {
+            "name": "Doanh nghiệp",
+            "price": "$49.99/tháng",
+            "description": "Dành cho doanh nghiệp muốn tối ưu hiệu suất.",
+            "features": [
+                "Tất cả từ Giao tiếp",
+                "Phân quyền tài khoản",
+                "Tích hợp API nâng cao",
+                "Ưu tiên hỗ trợ doanh nghiệp"
+            ]
+        }
+    },
+    "common": {
+        "chose": "Chọn gói phù hợp với bạn",
+        "faqTitle": "Câu hỏi thường gặp",
+        "pricingTitle": "Trải nghiệm sự khác biệt giữa gói Free và gói Premium"
+    },
+    "faq": {
+        "1": {
+            "question": "Làm thế nào để hủy gói?",
+            "answer": "Bạn có thể hủy bất kỳ lúc nào trong phần Cài đặt tài khoản..."
+        },
+        "2": {
+            "question": "Bản dùng thử Premium hoạt động thế nào?",
+            "answer": "Bạn có thể trải nghiệm bản Premium miễn phí trong 7 ngày..."
+        },
+        "3": {
+            "question": "Tôi có thể nâng cấp hoặc hạ cấp gói không?",
+            "answer": "Có, bạn có thể thay đổi gói bất kỳ lúc nào..."
+        }
+    },
+    "pricing": {
+        "features": {
+            "accessContent": "Truy cập nội dung",
+            "noAds": "Không quảng cáo",
+            "offlineDownload": "Tải xuống ngoại tuyến",
+            "prioritySupport": "Hỗ trợ ưu tiên",
+            "advancedAPI": "Tích hợp API nâng cao"
+        }
+    },
+    "footer": {
+        "about": "Về chúng tôi",
+        "contact": "Liên hệ",
+        "privacy": "Chính sách bảo mật",
+        "terms": "Điều khoản sử dụng",
+        "followUs": "Theo dõi chúng tôi",
+        "desc": "Ứng dụng mạng xã hội trực tuyến",
+        "booklib": "Booklib",
+        "coolgame": "Coolgame",
+        "voyagevibes": "VoyageVibes",
+        "academia": "Academia"
+  }
+}

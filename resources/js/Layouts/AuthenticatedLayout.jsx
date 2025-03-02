@@ -1,57 +1,80 @@
 import ApplicationLogo from '@/Components/ApplicationLogo'
 import Dropdown from '@/Components/Dropdown'
-import NavLink from '@/Components/NavLink'
+import NavItem from '@/Components/NavItem'
+import Button from '@/Components/Button'
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink'
 import { Link, usePage } from '@inertiajs/react'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { IoIosNotificationsOutline } from "react-icons/io"
 import { CiMail } from "react-icons/ci"
+import { RxDashboard } from "react-icons/rx"
+import { BsFilePost } from "react-icons/bs"
+import { LiaUserFriendsSolid } from "react-icons/lia"
+import { HiOutlineUserGroup } from "react-icons/hi2"
 
-export default function AuthenticatedLayout({ header, children }) {
+import { HiOutlineDotsHorizontal } from "react-icons/hi"
+
+export default function AuthenticatedLayout({ header, children, footer }) {
+    const { t } = useTranslation()
     const auth = usePage().props.auth.user
+    const { url } = usePage()
+    const isActive = route().current('users.notification')
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false)
     return (
         <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
             <nav className="border-b border-gray-100 bg-white dark:border-gray-700 dark:bg-gray-800 fixed top-0 w-full z-10">
-                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-xl">
                     <div className="flex h-16 justify-between">
-                        <div className="flex">
+                        <div className="flex items-center">
                             <div className="flex shrink-0 items-center">
-                                <Link href="/">
-                                    <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                                <Link href="/dashboard">
+                                    <ApplicationLogo className="block h-9 w-auto fill-current text-blue-500 dark:text-blue-600" title="CobhamSocial" />
                                 </Link>
                             </div>
 
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink
-                                    href={route('dashboard')}
-                                    active={route().current('dashboard')}
-                                >
-                                    Dashboard
-                                </NavLink>
-                                <NavLink
-                                    href={route('posts.index')}
-                                    active={route().current('posts.index')}
-                                >
-                                    Post
-                                </NavLink>
-                            </div>
-                        </div>
 
+                        </div>
+                        <div className="hidden space-x-2 sm:-my-px sm:ms-10 sm:flex">
+                            <NavItem href={route("dashboard")} icon={RxDashboard} active={route().current("dashboard")} />
+                            <NavItem href={route("posts.index")} icon={BsFilePost} active={route().current("posts.index")} />
+                            <NavItem href={route("friends.index")} icon={LiaUserFriendsSolid} active={route().current("friends.index")} />
+                            <NavItem href={route("groups.index")} icon={HiOutlineUserGroup} active={route().current("groups.index")} />
+                        </div>
                         <div className="hidden sm:ms-6 sm:flex sm:items-center">
                             <div className="relative flex items-center space-x-3">
-                                <div className='h-8 w-8 flex items-center justify-center border border-gray-500 dark:text-gray-500 dark:hover:border-gray-300 dark:hover:text-gray-300 rounded cursor-pointer'>
-                                    <CiMail size={20} />
+                                <div className='h-8 w-8 flex items-center justify-center dark:text-gray-500 dark:hover:text-gray-300 rounded cursor-pointer'>
+                                    <CiMail size={25} />
                                 </div>
                                 <Dropdown>
                                     <Dropdown.Trigger>
-                                        <div className='h-8 w-8 flex items-center justify-center border border-gray-500 dark:text-gray-500 dark:hover:border-gray-300 dark:hover:text-gray-300 rounded cursor-pointer'>
-                                            <IoIosNotificationsOutline size={20} />
+                                        <div
+                                            className={`h-8 w-8 flex items-center justify-center rounded cursor-pointer 
+                                                ${isActive ? 'text-blue-600' : 'dark:text-gray-500 dark:hover:text-gray-300'}`}
+                                        >
+                                            <IoIosNotificationsOutline size={25} />
                                         </div>
                                     </Dropdown.Trigger>
                                     <Dropdown.Content>
-                                        Mon ngu
+                                        <div className='dark:text-gray-300 px-3 py-1'>
+                                            <div className='flex items-start justify-between space-x-2'>
+                                                <div>
+                                                    <h4 className='text-[18px]'>Notifications</h4>
+                                                    <div className='flex space-x-1 items-center'>
+                                                        <span className='bg-blue-600 rounded-xl p-1 text-xs text-blue-200'>All</span>
+                                                        <span className='rounded-xl p-1 text-xs'>Unread</span>
+                                                    </div>
+                                                </div>
+                                                <div className='cursor-pointer mt-1'><HiOutlineDotsHorizontal size={20} /></div>
+                                            </div>
+                                            <div className=' text-sm py-2'>No announcement yet</div>
+                                            <Link href={route('users.notification')}>
+                                                <Button variant='info' className='w-full' size='small'>
+                                                    {t('button.seeAll')}
+                                                </Button>
+                                            </Link>
+                                        </div>
                                     </Dropdown.Content>
                                 </Dropdown>
                                 <Dropdown>
@@ -78,17 +101,34 @@ export default function AuthenticatedLayout({ header, children }) {
                                     </Dropdown.Trigger>
 
                                     <Dropdown.Content>
+                                        <Dropdown.Link href={route('users.show', auth.id)}>
+                                            <div className='flex items-center space-x-2 py-3 border-b border-gray-200'>
+                                                <div className='h-10 w-10'>
+                                                    <img
+                                                        alt='avt'
+                                                        src={
+                                                            auth.profile_pic ? `/storage/${auth.profile_pic}`
+                                                                : null
+                                                        }
+                                                        className='
+                                                            object-cover w-full h-full rounded-full border-2 
+                                                            border-blue-500'
+                                                    />
+                                                </div>
+                                                <div className='text-sm text-nowrap'>{auth.name}</div>
+                                            </div>
+                                        </Dropdown.Link>
                                         <Dropdown.Link
-                                            href={route('users.show', auth.id)}
+                                            href={route('users.settings')}
                                         >
-                                            {auth.name}
+                                            {t('button.setting')}
                                         </Dropdown.Link>
                                         <Dropdown.Link
                                             href={route('logout')}
                                             method="post"
                                             as="button"
                                         >
-                                            Log Out
+                                            {t('button.logout')}
                                         </Dropdown.Link>
                                     </Dropdown.Content>
                                 </Dropdown>
@@ -154,7 +194,7 @@ export default function AuthenticatedLayout({ header, children }) {
                             href={route('dashboard')}
                             active={route().current('dashboard')}
                         >
-                            Dashboard
+                            {t('title.dashboard')}
                         </ResponsiveNavLink>
                     </div>
 
@@ -174,7 +214,7 @@ export default function AuthenticatedLayout({ header, children }) {
                                 href={route('logout')}
                                 as="button"
                             >
-                                Log Out
+                                {t('button.logout')}
                             </ResponsiveNavLink>
                         </div>
                     </div>
@@ -182,14 +222,20 @@ export default function AuthenticatedLayout({ header, children }) {
             </nav>
 
             {header && (
-                <header className="bg-white shadow dark:bg-gray-800">
-                    <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+                <header className="bg-white shadow dark:bg-gray-800 mt-16">
+                    <div className="mx-auto max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
                         {header}
                     </div>
                 </header>
             )}
 
-            <main className='pt-16 pb-4'>{children}</main>
+            <main className='py-6'>{children}</main>
+            {footer && (
+                <footer className='w-full bg-gray-50 dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700'>
+                    {footer}
+                </footer>
+            )}
+
         </div>
     )
 }

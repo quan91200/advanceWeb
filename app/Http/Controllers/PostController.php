@@ -30,6 +30,10 @@ class PostController extends Controller
         ]);
     }
     // Tạo bài viết mới
+    public function create()
+    {
+        return inertia('Post/Create');
+    }
     public function store(PostRequest $request)
     {
         $validated = $request->validated();
@@ -43,10 +47,11 @@ class PostController extends Controller
             'content' => $validated['content'],
             'status' => $validated['status'],
             'image_url' => $imageUrl,
+            'user_id' => $request->user()->id,
             'created_by' => $request->user()->id,
             'updated_by' => $request->user()->id,
         ]);
-        return Inertia::location(route('posts.index'));
+        return redirect()->route('posts.index');
     }
     // Hiển thị form chỉnh sửa bài viết
     public function edit(Post $post)
@@ -78,9 +83,45 @@ class PostController extends Controller
         return Inertia::location(route('posts.show', $post));
     }
     // Xóa bài viết
-    public function destroy(Post $post)
+    public function destroy($id)
     {
+        $post = Post::findOrFail($id);
         $post->delete();
-        return back()->with('success', 'Post deleted successfully.');
+
+        return redirect()->route('posts.index')->with('success', 'Post deleted successfully!');
+    }
+    // Thùng rác
+    public function trash()
+    {
+        $posts = Post::onlyTrashed()->paginate(5);
+        return inertia('Post/Trash', [
+            'posts' => (PostResource::collection($posts))->resolve(),
+        ]);
+    }
+    // restore
+    public function restore($id)
+    {
+        $post = Post::onlyTrashed()->where('id', $id)->firstOrFail(); // Đúng cú pháp
+        $post->restore();
+
+        return redirect()->back()->with('success', 'Post restored successfully!');
+    }
+    // restore all
+    public function restoreAll()
+    {
+        Post::onlyTrashed()->restore();
+        redirect()->back()->with('success', 'All posts restored successfully!');
+    }
+    // delete
+    public function delete(Post $post)
+    {
+        $post->forceDelete();
+        redirect()->back()->with('success', 'Post deleted successfully!');
+    }
+    // delete all
+    public function deleteAll()
+    {
+        Post::onlyTrashed()->forceDelete();
+        redirect()->back()->with('success', 'All posts deleted successfully!');
     }
 }

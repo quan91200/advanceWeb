@@ -8,11 +8,13 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
     public function index(Request $request)
     {
+        $userCurrent = Auth::user()?->load(['posts', 'hobbies']);
         $postCount = Post::count();
         $userCount = User::count();
         $search = $request->input("search", '');
@@ -32,6 +34,7 @@ class DashboardController extends Controller
         ]);
             
         return inertia('Dashboard', [
+            'userCurrent' => $userCurrent ? (new UserResource($userCurrent))->resolve() : null,
             'post' => (PostResource::collection($post))->resolve(),
             'user' => (UserResource::collection($user))->resolve(),
             'search' => $search,

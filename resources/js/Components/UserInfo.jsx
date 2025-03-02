@@ -1,41 +1,42 @@
 import InfoRow from "@/Components/InfoRow"
+import { useTranslation } from "react-i18next"
 
 const UserInfo = ({ user }) => {
-    console.log(user)
+    const { t } = useTranslation()
     return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-gray-300">
-            <InfoRow label="Email" value={user.email || ""} lowercase />
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 dark:text-gray-300">
+            <InfoRow label={t('desc.profile.email')} value={user.email || ""} lowercase />
             <InfoRow
-                label="Bio"
-                value={user.profile?.bio || "Bio is not set yet"}
+                label={t('title.bio')}
+                value={user.profile?.bio || t('desc.bio')}
                 capitalize
             />
             <InfoRow
-                label="Date of Birth"
+                label={t('title.dob')}
                 value={user.profile?.dob || "YYY-mm-DD"}
             />
             <InfoRow
-                label="Job"
-                value={user.profile?.job || "Job is not set yet"}
+                label={t('title.job')}
+                value={user.profile?.job || t('desc.job')}
                 capitalize
             />
             <InfoRow
-                label="Phone"
+                label={t('title.phone')}
                 value={user.profile?.phone_number || "+xx"}
             />
             <InfoRow
-                label="Relationship"
-                value={user.profile?.relationship || "Relationship is not set yet"}
+                label={t('title.relationship')}
+                value={user.profile?.relationship || t('desc.relationship')}
                 capitalize
             />
             <InfoRow
-                label="Hobbies"
+                label={t('title.hobbies')}
                 value={
                     user.hobbies?.map((hobby) => (
                         <span key={hobby.id} className="ml-1">
                             {hobby.name}
                         </span>
-                    )) || "No hobbies set yet"
+                    )) || t('desc.hobbies')
                 }
             />
         </div>

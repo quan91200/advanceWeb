@@ -5,6 +5,7 @@ import { FaCommentDots } from "react-icons/fa"
 import { FaShare } from "react-icons/fa"
 import ApplicationLogo from '@/Components/ApplicationLogo'
 import Modal from '@/Components/Modal'
+import { IoMdClose } from "react-icons/io"
 
 const ModalPost = ({ post, showModal, setShowModal }) => {
     useEffect(() => {
@@ -26,11 +27,11 @@ const ModalPost = ({ post, showModal, setShowModal }) => {
                 <div className='absolute top-3 left-3 z-10 flex items-center space-x-2'>
                     <button
                         onClick={() => setShowModal(false)}
-                        className="bg-black text-white dark:bg-gray-800 dark:text-gray-100 p-3 h-10 w-10 rounded-full flex items-center justify-center"
+                        className="bg-black text-white dark:bg-gray-800 dark:text-gray-100 p-3 rounded-full flex items-center justify-center hover:opacity-100 opacity-75"
                     >
-                        X
+                        <IoMdClose size={20} />
                     </button>
-                    <ApplicationLogo className="h-10 w-10 fill-current text-gray-500" />
+                    <ApplicationLogo className="h-10 w-10 fill-current text-blue-500 dark:text-blue-600" title="CobhamSocial" />
                 </div>
                 <div className="w-full lg:w-2/3 bg-black flex items-center justify-center">
                     <div>

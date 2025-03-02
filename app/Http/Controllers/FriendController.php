@@ -17,6 +17,7 @@ class FriendController extends Controller
         $currentUser = Auth::user();
 
         return inertia('Friend/Index', [
+            'user' => $currentUser,
             'friends' => UserResource::collection(User::friendsList($currentUser->id)->get()),
             'not_friends' => UserResource::collection(User::notFriends($currentUser->id)->get()),
         ]);
@@ -103,5 +104,14 @@ class FriendController extends Controller
 
         $friendship->update(['status' => 'blocked']);
         return response()->json(['message' => 'Đã chặn người bạn này.'], 200);
+    }
+    // Groups
+    public function groups()
+    {
+        $currentUser = Auth::user();
+
+        return inertia('Friend/Groups', [
+            'user' => $currentUser,
+        ]);
     }
 }

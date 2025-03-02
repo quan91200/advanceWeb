@@ -54,7 +54,7 @@ export default function Modal({
                     leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                 >
                     <DialogPanel
-                        className="fixed inset-0 flex w-screen h-screen bg-black text-white overflow-hidden"
+                        className="fixed inset-0 flex w-screen h-screen bg-black overflow-hidden"
                     >
                         {children}
                     </DialogPanel>

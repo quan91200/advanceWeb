@@ -1,14 +1,15 @@
-// Interactive.jsx
 import React, { useState, useRef, useEffect } from 'react'
-import { Link, Inertia } from '@inertiajs/react'
+import { Link, router } from '@inertiajs/react'
 import Dropdown from '@/Components/Dropdown'
 import { MdMoreHoriz } from "react-icons/md"
 import ModalPost from '@/Components/ModalPost'
 import { FcLike } from "react-icons/fc"
 import { FaCommentDots } from "react-icons/fa"
 import { FaShare } from "react-icons/fa"
+import { useTranslation } from 'react-i18next'
 
 const Interactive = ({ post }) => {
+    const { t } = useTranslation()
     const [isExpanded, setIsExpanded] = useState(false)
     const [isClamped, setIsClamped] = useState(false)
     const contentRef = useRef(null)
@@ -28,7 +29,7 @@ const Interactive = ({ post }) => {
 
     function deletePost(id) {
         if (confirm("Are you sure you want to delete this post?")) {
-            Inertia.delete(route("posts.destroy", id), {
+            router.delete(route("posts.destroy", id), {
                 onSuccess: () => alert("Post deleted successfully"),
             })
         }
@@ -61,18 +62,18 @@ const Interactive = ({ post }) => {
                             <span>|</span>
                             <Dropdown>
                                 <Dropdown.Trigger>
-                                    <MdMoreHoriz className='opacity-75 hover:opacity-100 hover:scale-125' />
+                                    <MdMoreHoriz className='hover:opacity-75 opacity-100 hover:scale-125' />
                                 </Dropdown.Trigger>
                                 <Dropdown.Content align='right'>
                                     {post.user.id === post.user.auth ? (
                                         <>
-                                            <Dropdown.Link href={route('posts.edit', { id: post.user.id })}>Edit</Dropdown.Link>
-                                            <Dropdown.Link onClick={() => deletePost(post.id)}>Delete</Dropdown.Link>
+                                            <Dropdown.Link href={route('posts.edit', { id: post.user.id })}>{t('button.edit')}</Dropdown.Link>
+                                            <Dropdown.Link onClick={() => deletePost(post.id)}>{t('button.delete')}</Dropdown.Link>
                                         </>
                                     ) : (
                                         <>
-                                            <Dropdown.Link>Report</Dropdown.Link>
-                                            <Dropdown.Link>Hide</Dropdown.Link>
+                                            <Dropdown.Link>{t('button.report')}</Dropdown.Link>
+                                            <Dropdown.Link>{t('button.hide')}</Dropdown.Link>
                                         </>
                                     )}
                                 </Dropdown.Content>
@@ -81,10 +82,10 @@ const Interactive = ({ post }) => {
                     </div>
                 </div>
             </div>
-            <div className="p-4 absolute bottom-0 left-0 bg-gradient-to-t from-gray-900 to-transparent">
+            <div className="p-4 absolute bottom-0 left-0 bg-gradient-to-t dark:from-gray-900 from-gray-500 w-full to-transparent">
                 <div
                     ref={contentRef}
-                    className={`text-xl font-semibold dark:text-gray-300 dark:bg-[rgba(255, 255, 255, .5)] ${!isExpanded ? 'line-clamp-2' : ''}`}
+                    className={`text-xl font-semibold dark:text-gray-300 text-gray-200 dark:bg-[rgba(255, 255, 255, .5)] ${!isExpanded ? 'line-clamp-2' : ''}`}
                     style={{
                         display: '-webkit-box',
                         WebkitBoxOrient: 'vertical',
@@ -95,15 +96,15 @@ const Interactive = ({ post }) => {
                     {post.content}
                 </div>
                 <div className='flex items-center justify-between'>
-                    <div className="flex space-x-4 mt-4 dark:text-gray-600">
+                    <div className="flex space-x-4 mt-4 dark:text-gray-600 text-gray-100">
                         <button className="flex items-center space-x-1">
-                            <FcLike /> <p>React</p>
+                            <FcLike /> <p>{t('button.react')}</p>
                         </button>
                         <button className="flex items-center space-x-1">
-                            <FaCommentDots /> <p>Comment</p>
+                            <FaCommentDots /> <p>{t('button.comment')}</p>
                         </button>
                         <button className="flex items-center space-x-1">
-                            <FaShare /> <p>Share</p>
+                            <FaShare /> <p>{t('button.share')}</p>
                         </button>
                     </div>
                     {isClamped && !isExpanded && (

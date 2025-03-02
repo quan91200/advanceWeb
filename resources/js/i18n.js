@@ -16,3 +16,4 @@ i18n.use(HttpApi)
             loadPath: '/locales/{{lng}}/global.json' // Đường dẫn tệp tải ngôn ngữ
         }
     })
+export default i18n

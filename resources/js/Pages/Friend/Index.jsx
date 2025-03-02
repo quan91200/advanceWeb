@@ -1,16 +1,38 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout"
 import { Link, Head } from "@inertiajs/react"
+import { MdChevronLeft } from "react-icons/md"
+import Button from "@/Components/Button"
+import { useTranslation } from "react-i18next"
+import Footer from "@/Components/Footer"
 
-const Index = ({ friends, not_friends }) => {
+const Index = ({ friends, not_friends, user }) => {
+    const { t } = useTranslation()
+    console.log(user)
     return (
-        <AuthenticatedLayout>
+        <AuthenticatedLayout
+            header={
+                <div className="flex items-center space-x-2">
+                    <Link href={route('users.show', user.id)}>
+                        <Button variant='outlineInfo' size='circle' className='border-none flex items-center justify-center'>
+                            <MdChevronLeft size={28} />
+                        </Button>
+                    </Link>
+                    <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-300 leading-tight">
+                        {t('title.yourFriend')}
+                    </h2>
+                </div>
+            }
+            footer={
+                <Footer />
+            }
+        >
             <Head title="Your Friends" />
             <div className="w-full max-w-4xl mx-auto">
                 <div className="p-6 space-y-8">
                     {/* Friends Section */}
                     <div>
                         <h2 className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-4">
-                            Friends
+                            {t('title.friend')}
                         </h2>
                         <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                             {friends.map((friend) => (
@@ -35,7 +57,7 @@ const Index = ({ friends, not_friends }) => {
                     {/* People You May Know Section */}
                     <div>
                         <h2 className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-4">
-                            People You May Know
+                            {t('title.people')}
                         </h2>
                         <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                             {not_friends.map((user) => (

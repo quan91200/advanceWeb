@@ -14,6 +14,9 @@ class SettingRequest extends FormRequest
     }
     public function rules(): array
     {
+        if ($this->isMethod('get')) {
+            return []; // Không kiểm tra validation khi GET
+        }
         return [
             'email' => [
                 'required',

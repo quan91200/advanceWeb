@@ -34,5 +34,11 @@ class ProfileController extends Controller
         $profile->save();
         return redirect()->route('users.edit', ['id' => $user->id]);
     }
+    // pricing
+    public function pricing()
+    {
+
+        return inertia('Profile/Price');
+    }
 }
 

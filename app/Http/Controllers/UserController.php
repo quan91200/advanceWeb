@@ -12,7 +12,7 @@ use App\Models\Friend;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
-
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 class UserController extends Controller
 {
@@ -45,7 +45,7 @@ class UserController extends Controller
         ]);
     }
     // Hiển thị form cập nhật thông tin hồ sơ người dùng
-    public function edit(Request $request, $id)
+    public function edit(Request $request)
     {
         $user = $request->user();
         $userHobbies = $user->userHobbies;
@@ -53,6 +53,24 @@ class UserController extends Controller
         return inertia('User/Edit',[
             'user' => (new UserResource($user))->resolve(),
             'userHobbies' => (UserHobbyResource::collection($userHobbies))->resolve(),
+        ]);
+    }
+    // Hiển thị các cài đặt của người dùng (dark mode, language, xóa tài khoản)
+    public function setting(SettingRequest $request)
+    {
+        $user = $request->user();
+        return inertia('User/Setting', [
+            'user' => new UserResource($user),
+        ]);
+    }
+    // account center
+    public function accountCenter(Request $request)
+    {
+        $user = $request->user();
+        return inertia('Setting/AccountCenter', [
+            'user' => new UserResource($user),
+            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
+            'status' => session('status'),
         ]);
     }
     // Cập nhật thông tin hồ sơ người dùng
@@ -66,29 +84,17 @@ class UserController extends Controller
             }
             $data['profile_pic'] = $request->file('profile_pic')->store('images', 'public');
         }
+        
         $user->update($data);
         return redirect()->route('users.show', ['id' => $user->id])
-            ->with('success', 'Thông tin người dùng và sở thích đã được cập nhật.');
+            ->with('success', 'Thông tin người dùng đã được cập nhật.');
     }
-    // Hiển thị các cài đặt của người dùng (dark mode, language, xóa tài khoản)
-    public function setting(SettingRequest $request)
-    {
-        $user = $request->user();
-        $user->update([
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-            'language' => $request->language,
-            'dark_mode' => $request->dark_mode,
-        ]);
-        return inertia('User/Setting', [
-            'user' => new UserResource($user),
-            'dark_mode' => $user->dark_mode,
-            'language' => $user->language,
-        ])->with('success', 'Settings updated successfully.');
-    }
-    // Xóa người dùng (Cẩn thận với tính năng này)
+    // Xóa người dùng
     public function destroy(Request $request)
     {
+        $request->validate([
+            'password' => ['required', 'current_password'],
+        ]);
         $user = $request->user();
         // Xóa các dữ liệu liên quan
         $user->posts()->delete();
@@ -100,5 +106,70 @@ class UserController extends Controller
         return Inertia::render('Auth/Login', [
             'message' => 'Your account has been deleted and you have been logged out.'
         ]);
+    }
+    // Block
+    public function block()
+    {
+        return inertia('Setting/Block');
+    }
+    // Language
+    public function language(Request $request)
+    {
+        return inertia('Setting/Language', [
+            'language' => $request->user()->language,
+        ]);
+    }
+    public function updateLanguage(Request $request)
+    {   
+        $request->validate([
+            'language' => 'required|in:en,vi',
+        ]);
+
+        $user = $request->user();
+        $user->language = $request->language;
+        $user->save();
+
+        return back()->with('success', 'Language updated successfully!');
+    }
+    // Dark mode
+    public function darkMode(Request $request)
+    {
+        return inertia('Setting/Darkmode');
+    }
+    public function updateDarkMode(Request $request)
+    {
+        $request->validate([
+            'dark_mode' => 'required|in:light,dark',
+        ]);
+
+        $user = auth()->user();
+        $user->update(['dark_mode' => $request->dark_mode]);
+
+        return back();
+    }
+    // EmotionOptions
+    public function emotionOptions()
+    {
+        return inertia('Setting/EmotionOptions');
+    }
+    // community
+    public function community()
+    {
+        return inertia('Setting/Community');
+    }
+    // Privacy
+    public function privacy()
+    {
+        return inertia('Setting/Privacy');
+    }
+    // TermOfService
+    public function termOfService()
+    {
+        return inertia('Setting/TermOfService');
+    }
+    // Notification
+    public function notification()
+    {
+        return inertia('Setting/Notification');
     }
 }

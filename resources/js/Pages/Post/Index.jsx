@@ -10,19 +10,21 @@ import Interactive from '@/Components/Post/Interactive'
 import { IoGrid } from "react-icons/io5"
 import { BsFillGrid1X2Fill } from "react-icons/bs"
 import { SiSendgrid } from "react-icons/si"
+import { useTranslation } from 'react-i18next'
 
 const Index = ({ posts }) => {
-    const [postStyle, setPostStyle] = useState('modern')
+    const { t } = useTranslation()
+    const [postStyle, setPostStyle] = useState('interactive')
     const { data } = posts
     const handlePostStyleChange = (style) => {
         setPostStyle(style)
     }
     return (
         <AuthenticatedLayout>
-            <Head title='Post' />
-            <div className='max-w-3xl mx-auto mt-5 flex justify-end'>
+            <Head title={t('title.post')} />
+            <div className='max-w-3xl mx-auto pt-16 flex justify-end'>
                 <button
-                    className="flex items-center px-4 py-2 rounded bg-blue-600 text-white"
+                    className="flex items-center px-4 py-2 rounded dark:bg-blue-600 bg-blue-500 text-white"
                     onClick={() => {
                         const nextStyle = postStyle === 'modern' ? 'basic' :
                             postStyle === 'basic' ? 'interactive' : 'modern'

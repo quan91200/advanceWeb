@@ -17,6 +17,7 @@ class Post extends Model
         'react',
         'is_comment'
     ];
+    protected $dates = ['deleted_at'];
     protected $casts = [
         'is_comment' => 'boolean',
     ];
@@ -47,11 +48,13 @@ class Post extends Model
     protected static function boot()
     {
         parent::boot();
+
         static::deleting(function ($post) {
-            $post->comments()->delete();
-        });
-        static::restoring(function ($post) {
-            $post->comments()->restore();
+            if ($post->forceDeleting) { // Xóa vĩnh viễn
+                $post->comments()->forceDelete();
+            } else { // Xóa mềm
+                $post->comments()->delete();
+            }
         });
     }
     // Scope lọc các bài viết có trạng thái 'public'

@@ -6,8 +6,10 @@ import { Link, useForm } from '@inertiajs/react'
 import DropdownSearch from '@/Components/DropdownSearch'
 import { IoTrashOutline } from "react-icons/io5"
 import { BsTrash2 } from "react-icons/bs"
+import { useTranslation } from 'react-i18next'
 
 const Edit = ({ userHobbies, notInUserHobbies }) => {
+    const { t } = useTranslation()
     const [selectedOption, setSelectedOption] = useState({})
     const [isHovered, setIsHovered] = useState(false)
     const userId = userHobbies[0].user_id
@@ -45,7 +47,7 @@ const Edit = ({ userHobbies, notInUserHobbies }) => {
     return (
         <AuthenticatedLayout>
             <div className="max-w-4xl mx-auto p-6 space-y-6">
-                <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">Your Hobbies</h2>
+                <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">{t('desc.yourHobbies')}</h2>
 
                 <div className='flex items-start flex-col w-full space-y-2'>
                     {userHobbies.length > 0 ? (
@@ -69,12 +71,12 @@ const Edit = ({ userHobbies, notInUserHobbies }) => {
 
                         ))
                     ) : (
-                        <div className="text-gray-500 dark:text-gray-400">You don't have any hobbies yet. Add some!</div>
+                        <div className="text-gray-500 dark:text-gray-400">{t("desc.noHobbies")}</div>
                     )}
                 </div>
 
                 <div className='flex flex-col items-start space-y-2'>
-                    <h2 className='text-xl font-bold dark:text-gray-100'>Add Your Hobbies</h2>
+                    <h2 className='text-xl font-bold dark:text-gray-100'>{t('desc.addHobbies')}</h2>
                     <form onSubmit={submit} className='bg-white dark:bg-gray-800 shadow-md rounded-lg p-8 w-full flex items-center flex-col space-y-3'>
                         <div className='w-full'>
                             <InputLabel htmlFor="name" value="Hobby Name" />
@@ -89,11 +91,11 @@ const Edit = ({ userHobbies, notInUserHobbies }) => {
                             <Link
                                 className='w-full'
                                 href={route('users.edit', userId)}>
-                                <Button variant='success' className='w-full'>
-                                    Done
+                                <Button variant='primary' className='w-full'>
+                                    {t('button.back')}
                                 </Button>
                             </Link>
-                            <Button variant='warning' className='w-full' disabled={processing}>Save</Button>
+                            <Button variant='warning' className='w-full' disabled={processing}>{t('button.save')}</Button>
                         </div>
                     </form>
                 </div>
