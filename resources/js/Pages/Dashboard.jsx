@@ -86,12 +86,12 @@ export default function Dashboard({ userCurrent }) {
                         <div className="w-full md:w-2/3 p-6 dark:text-gray-300">
                             {/* Giới thiệu */}
                             <div className='mb-3'>
-                                <h3 className="text-xl font-semibold text-gray-100 border-b pb-1 mb-3">{t('title.bio')}</h3>
+                                <h3 className="text-xl font-semibold dark:text-gray-100 border-b pb-1 mb-3">{t('title.bio')}</h3>
                                 <p>{userCurrent.profile.bio || 'No bio yet.'}</p>
                             </div>
                             {/* Kinh nghiệm - Bài viết gần đây */}
                             <div className="mb-3">
-                                <h3 className="text-xl font-semibold text-gray-100 border-b pb-1 mb-3">{t('title.recentPost')}</h3>
+                                <h3 className="text-xl font-semibold dark:text-gray-100 border-b pb-1 mb-3">{t('title.recentPost')}</h3>
                                 {userCurrent.posts.length > 0 ? (
                                     userCurrent.posts.slice(0, 3).map((post, index) => (
                                         <p key={index} className="truncate">📝 {post.content}</p>
@@ -103,7 +103,7 @@ export default function Dashboard({ userCurrent }) {
 
                             {/* Kỹ năng & Sở thích */}
                             <div className="mb-3">
-                                <h3 className="text-xl font-semibold text-gray-100 border-b pb-1 mb-3">{t('title.skillinter')}</h3>
+                                <h3 className="text-xl font-semibold dark:text-gray-100 border-b pb-1 mb-3">{t('title.skillinter')}</h3>
                                 <ul className="list-disc list-inside">
                                     {userCurrent.hobbies.length > 0 ? (
                                         userCurrent.hobbies.map((hobby, index) => (
