@@ -25,12 +25,12 @@ const Edit = ({ profile }) => {
     return (
         <AuthenticatedLayout>
             <Head title={t('title.editProfile')} />
-            <div className="max-w-3xl w-full mx-auto my-10 p-8 bg-gray-800 rounded-lg shadow-lg">
-                <h2 className="text-2xl font-semibold text-white mb-6">{t('title.editProfile')}</h2>
+            <div className="max-w-3xl w-full mx-auto my-16 p-8 dark:bg-gray-800 bg-gray-200 rounded-lg shadow-lg">
+                <h2 className="text-2xl font-semibold dark:text-white mb-6">{t('title.editProfile')}</h2>
                 <form onSubmit={submit} className="space-y-6">
                     {/* Phone Number */}
                     <div>
-                        <label htmlFor="phone_number" className="block text-sm font-medium text-gray-300">
+                        <label htmlFor="phone_number" className="block text-sm font-medium dark:text-gray-300">
                             {t('title.phone')}
                         </label>
                         <TextInput
@@ -46,7 +46,7 @@ const Edit = ({ profile }) => {
                     </div>
                     {/* Date of Birth */}
                     <div>
-                        <label htmlFor="dob" className="block text-sm font-medium text-gray-300">
+                        <label htmlFor="dob" className="block text-sm font-medium dark:text-gray-300">
                             {t('title.dob')}
                         </label>
                         <TextInput
@@ -61,7 +61,7 @@ const Edit = ({ profile }) => {
                     </div>
                     {/* Gender */}
                     <div>
-                        <label htmlFor="gender" className="block text-sm font-medium text-gray-300">
+                        <label htmlFor="gender" className="block text-sm font-medium dark:text-gray-300">
                             {t('title.gender')}
                         </label>
                         <select
@@ -78,7 +78,7 @@ const Edit = ({ profile }) => {
                     </div>
                     {/* Job */}
                     <div>
-                        <label htmlFor="job" className="block text-sm font-medium text-gray-300">
+                        <label htmlFor="job" className="block text-sm font-medium dark:text-gray-300">
                             {t('title.job')}
                         </label>
                         <TextInput
@@ -93,7 +93,7 @@ const Edit = ({ profile }) => {
                     </div>
                     {/* Relationship */}
                     <div>
-                        <label htmlFor="relationship" className="block text-sm font-medium text-gray-300">
+                        <label htmlFor="relationship" className="block text-sm font-medium dark:text-gray-300">
                             {t('title.relationship')}
                         </label>
                         <select
@@ -111,7 +111,7 @@ const Edit = ({ profile }) => {
                     </div>
                     {/* Bio */}
                     <div>
-                        <label htmlFor="bio" className="block text-sm font-medium text-gray-300">
+                        <label htmlFor="bio" className="block text-sm font-medium dark:text-gray-300">
                             {t('title.bio')}
                         </label>
                         <textarea

@@ -18,10 +18,10 @@ const Edit = ({ user, userHobbies }) => {
     })
     return (
         <AuthenticatedLayout>
-            <div className="max-w-6xl mx-auto my-8 space-y-5">
+            <div className="max-w-6xl mx-auto my-8 space-y-5 p-10">
                 {/*Information */}
-                <div className="max-w-4xl mx-auto bg-gray-800 p-6 rounded-xl shadow-lg">
-                    <h2 className="text-3xl font-semibold text-white mb-8">{t('title.editInfor')}</h2>
+                <div className="max-w-4xl mx-auto dark:bg-gray-800 bg-gray-200 p-6 rounded-xl shadow-lg">
+                    <h2 className="text-3xl font-semibold dark:text-white mb-8">{t('title.editInfor')}</h2>
                     <form className="space-y-8">
                         <div className="flex flex-col w-full space-y-2">
                             <div>
@@ -103,8 +103,8 @@ const Edit = ({ user, userHobbies }) => {
                     </form>
                 </div>
                 {/*Hobby */}
-                <div className='max-w-4xl mx-auto bg-gray-800 p-6 rounded-xl shadow-lg'>
-                    <h2 className="text-3xl font-semibold text-white mb-8">{t('desc.editHobbies')}</h2>
+                <div className='max-w-4xl mx-auto dark:bg-gray-800 bg-gray-200 p-6 rounded-xl shadow-lg'>
+                    <h2 className="text-3xl font-semibold dark:text-white mb-8">{t('desc.editHobbies')}</h2>
                     <div className="flex flex-col items-start mt-6 space-y-4">
                         <div className='flex flex-row space-x-2 flex-wrap'>
                             {userHobbies.length > 0 ? (

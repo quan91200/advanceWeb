@@ -28,16 +28,16 @@ const Notification = () => {
                         </Dropdown>
                     </div>
                     <div className='flex space-x-1 items-center my-2'>
-                        <span className='bg-blue-600 rounded-xl p-2 text-blue-200'>{t('notification.noti')}</span>
-                        <span className='rounded-xl p-1'>{t('notification.all')}</span>
+                        <span className='bg-blue-600 rounded-xl p-2 text-blue-200'>{t('notification.all')}</span>
+                        <span className='rounded-xl p-1'>{t('notification.unread')}</span>
                     </div>
 
                     <p className="mt-2 text-gray-600 dark:text-gray-400">
-                        {t('notification.unread')}
+                        {t('notification.noNoti')}
                     </p>
                     <div className="mt-4">
                         <Link href={route('dashboard')} className="text-blue-500 hover:underline">
-                            {t('notification.noNoti')}
+                            {t('button.backToDashboard')}
                         </Link>
                     </div>
                 </div>

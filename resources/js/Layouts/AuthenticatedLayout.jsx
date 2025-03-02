@@ -60,15 +60,15 @@ export default function AuthenticatedLayout({ header, children, footer }) {
                                         <div className='dark:text-gray-300 px-3 py-1'>
                                             <div className='flex items-start justify-between space-x-2'>
                                                 <div>
-                                                    <h4 className='text-[18px]'>Notifications</h4>
+                                                    <h4 className='text-[18px]'>{t('title.notification')}</h4>
                                                     <div className='flex space-x-1 items-center'>
-                                                        <span className='bg-blue-600 rounded-xl p-1 text-xs text-blue-200'>All</span>
-                                                        <span className='rounded-xl p-1 text-xs'>Unread</span>
+                                                        <span className='bg-blue-600 rounded-xl p-1 text-xs text-blue-200'>{t('notification.all')}</span>
+                                                        <span className='rounded-xl p-1 text-xs'>{t('notification.unread')}</span>
                                                     </div>
                                                 </div>
                                                 <div className='cursor-pointer mt-1'><HiOutlineDotsHorizontal size={20} /></div>
                                             </div>
-                                            <div className=' text-sm py-2'>No announcement yet</div>
+                                            <div className=' text-sm py-2'>{t('notification.noNoti')}</div>
                                             <Link href={route('users.notification')}>
                                                 <Button variant='info' className='w-full' size='small'>
                                                     {t('button.seeAll')}
