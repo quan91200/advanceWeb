@@ -10,4 +10,15 @@ export default defineConfig({
         }),
         react(),
     ],
+    server: {
+        host: '0.0.0.0',
+        port: 5173,
+        strictPort: true,
+        https: true,
+        cors: true,
+        hmr: {
+            protocol: 'wss',
+            host: ngrokUrl.replace('https://', ''),
+        }
+    }
 });
