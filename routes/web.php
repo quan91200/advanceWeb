@@ -28,7 +28,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
- 
     Route::prefix('users')->name('users.')->group(function () {
 
         Route::get('/', [UserController::class, 'index'])->name('index');
@@ -40,16 +39,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::patch('/edit/my-hobbies={userId}/add-my-hobbies/{hobbyId}', [UserHobbyController::class, 'addHobbyToUser'])->name('addHobbies');
         Route::patch('/edit/my-hobbies/add-new-hobbies', [UserHobbyController::class, 'addNewHobbyToUser'])->name('newHobbies');
         Route::delete('/my-hobbies={userId}/delete/{hobbyId}', [UserHobbyController::class, 'removeHobbyFromUser'])->name('removeMyHobby');
- 
+
         Route::get('/edit/profile={id}', [ProfileController::class, 'edit'])->name('profiles.edit');
         Route::patch('/update/profile', [ProfileController::class, 'update'])->name('profiles.update');
 
         Route::get('/price', [ProfileController::class, 'pricing'])->name('price');
- 
+  
         Route::get('/settings', [UserController::class, 'setting'])->name('settings');
         Route::get('/settings/account-center', [UserController::class,'accountCenter'])->name('settings.accountCenter');
         Route::get('/setting/block', [UserController::class,'block'])->name('block');
- 
+  
         Route::get('/setting/language', [UserController::class,'language'])->name('language'); 
         Route::post('/setting/language', [UserController::class, 'updateLanguage'])->name('updateLang');
         
@@ -76,10 +75,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::delete('/delete/{id}', [PostController::class,'delete'])->name("delete");
         Route::delete('/delete-all', [PostController::class, 'deleteAll'])->name("deleteAll");
     });
+
+    Route::apiResource('locations', LocationController::class);
+
+    Route::prefix('friends')->group(function () {
+        Route::get('/', [FriendController::class, 'index'])->name('friends.index'); // Danh sách bạn bè
+        Route::post('/', [FriendController::class, 'store'])->name('friends.addfriend'); // Gửi lời mời kết bạn
+        Route::patch('/{id}', [FriendController::class, 'update'])->name('friends.update'); // Chấp nhận / từ chối
+        Route::delete('/{id}', [FriendController::class, 'destroy'])->name('friends.unfriend'); // Hủy kết bạn
     });
-    // Groups
     Route::prefix('groups')->name('groups.')->group(function () {
-        Route::get('/', [FriendController::class, 'groups'])->name('index');
+        Route::get('/', [FriendController::class, 'groups'])->name('index'); // Danh sách nhóm
     });
 });
 
