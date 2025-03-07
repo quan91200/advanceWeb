@@ -11,13 +11,16 @@ use Illuminate\Support\Facades\App;
 
 class NgrokMiddleware
 {
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): Response
     {
         if (App::environment('local') && str_contains($request->header('host'), 'ngrok-free.app')) {
             $ngrokUrl = 'https://' . $request->getHost();
-        
+
             Config::set('app.url', $ngrokUrl);
             URL::forceRootUrl($ngrokUrl);
-        }        
+            URL::forceScheme('https');
+        }
+
+        return $next($request);
     }
 }
