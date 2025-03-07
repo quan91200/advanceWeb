@@ -21,7 +21,6 @@ class HandleInertiaRequests extends Middleware
             'translations' => function () {
                 return json_decode(file_get_contents(resource_path('lang/' . app()->getLocale() . '.json')), true);
             },
-            // Thông tin về người dùng đang đăng nhập
             'auth' => [
                 'user' => $request->user() ? [
                     'id' => $request->user()->id,
@@ -32,12 +31,10 @@ class HandleInertiaRequests extends Middleware
                     'language' => $request->user()->language,
                 ] : null,
             ],
-            // Flash messages
             'flash' => [
                 'success' => session('success'),
                 'error' => session('error'),
             ],
-            // Cấu hình hoặc thông tin chung
             'app' => [
                 'name' => config('app.name'),
                 'locale' => app()->getLocale(),

@@ -15,9 +15,8 @@ return Application::configure(basePath: dirname(__DIR__))
             \App\Http\Middleware\HandleInertiaRequests::class,
             \App\Http\Middleware\SetLocale::class,
             \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
+	        // \App\Http\Middleware\NgrokMiddleware::class,
         ]);
-
-        //
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

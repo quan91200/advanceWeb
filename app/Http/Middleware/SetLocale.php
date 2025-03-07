@@ -11,8 +11,15 @@ class SetLocale
 {
     public function handle(Request $request, Closure $next): Response
     {
-        $locale = $request->user()->language ?? $request->getPreferredLanguage(['en', 'vi']); // Mặc định là 'en' nếu chưa đăng nhập
-        App::setLocale($locale); // Thiết lập ngôn ngữ
-        return $next($request);
+        $locale = optional($request->user())->language ?? $request->getPreferredLanguage(['en', 'vi']);
+        App::setLocale($locale);
+
+        $response = $next($request);
+
+        if (!$response instanceof Response) {
+            return response($response);
+        }
+
+        return $response;
     }
 }

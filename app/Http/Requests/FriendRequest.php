@@ -6,7 +6,6 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class FriendRequest extends FormRequest
 {
-    // Xác định liệu người dùng có quyền thực hiện yêu cầu này hay không.
     public function authorize(): bool
     {
         return true;
@@ -16,7 +15,7 @@ class FriendRequest extends FormRequest
     {
         return [
             'friend_id' => 'required|exists:users,id',
-            'status' => 'required|in:pending,accepted,blocked', // Trạng thái mối quan hệ bạn bè
+            'status' => 'required|in:pending,accepted,blocked',
         ];
     }
     public function messages()
